@@ -1,0 +1,53 @@
+.multiline-ellipsis {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    /*-webkit-line-clamp: 2;*/
+    white-space: pre-wrap;
+}
+
+.max-lines-4 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    white-space: pre-wrap;
+}
+.max-lines-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    white-space: pre-wrap;
+}
+.max-lines-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    white-space: pre-wrap;
+}
+
+.single-line-ellipsis {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+div.nice-select {
+    padding-right: 1rem !important;
+}
+
+div.nice-select .current{
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+}
+
+.tp-product-rating-icon span.un-count {
+    color: var(--bs-gray-500) !important;
+}
+
+.livewire-root {
+    /*display: contents;*/
+}
