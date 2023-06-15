@@ -2,9 +2,10 @@
 
 namespace App\Enums;
 
+use BenSampo\Enum\Contracts\LocalizedEnum;
 use BenSampo\Enum\Enum;
 
-final class ImageType extends Enum
+final class ImageType extends Enum implements LocalizedEnum
 {
     const LOGO = 'logo';
     const ILLUSTRATION = 'illustration';

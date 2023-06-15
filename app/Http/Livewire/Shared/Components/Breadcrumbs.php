@@ -9,7 +9,7 @@ class Breadcrumbs extends Component
     private $breadcrumbsData = [];
     private $type = 1;
 
-    public function mount($data, $type)
+    public function mount($data, $type = 1)
     {
         $this->breadcrumbsData = $data;
         $this->type = $type;

@@ -4,7 +4,7 @@
             <div class="swiper-wrapper">
                 @foreach($adProducts as $adProduct)
                     @if($adProduct->id % 2 === 1)
-                        <div class="tp-slider-item tp-slider-height d-flex align-items-center swiper-slide green-dark-bg">
+                        <div wire:key="'ad-product-'.$adProduct->id.rand()" class="tp-slider-item tp-slider-height d-flex align-items-center swiper-slide green-dark-bg">
                             <div class="tp-slider-shape">
                                 <img class="tp-slider-shape-1" src={{asset("assets/img/slider/shape/slider-shape-1.png")}} alt="slider-shape">
                                 <img class="tp-slider-shape-2" src={{asset("assets/img/slider/shape/slider-shape-2.png")}} alt="slider-shape">
@@ -27,7 +27,7 @@
                                             </p>
 
                                             <div class="tp-slider-btn">
-                                                <a href="shop.html" class="tp-btn tp-btn-2 tp-btn-white">{{ __('home.ads_slider.shop_now') }}
+                                                <a href="{{$adProduct->details_page_link}}" class="tp-btn tp-btn-2 tp-btn-white">{{ __('home.ads_slider.shop_now') }}
                                                     <svg width="17" height="14" viewBox="0 0 17 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M16 6.99976L1 6.99976" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                         <path d="M9.9502 0.975414L16.0002 6.99941L9.9502 13.0244" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -45,7 +45,7 @@
                             </div>
                         </div>
                     @else
-                        <div class="tp-slider-item is-light tp-slider-height d-flex align-items-center swiper-slide" data-bg-color="#E3EDF6">
+                        <div wire:key="'ad-product-'.$product->id.rand()" class="tp-slider-item is-light tp-slider-height d-flex align-items-center swiper-slide" data-bg-color="#E3EDF6">
                             <div class="tp-slider-shape">
                                 <img class="tp-slider-shape-1" src={{asset("assets/img/slider/shape/slider-shape-1.png")}} alt="slider-shape">
                                 <img class="tp-slider-shape-2" src={{asset("assets/img/slider/shape/slider-shape-2.png")}} alt="slider-shape">
@@ -68,7 +68,7 @@
                                             </p>
 
                                             <div class="tp-slider-btn">
-                                                <a href="shop.html" class="tp-btn tp-btn-2 tp-btn-white">{{ __('home.ads_slider.shop_now') }}
+                                                <a href="{{$adProduct->details_page_link}}" class="tp-btn tp-btn-2 tp-btn-white">{{ __('home.ads_slider.shop_now') }}
                                                     <svg width="17" height="14" viewBox="0 0 17 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M16 6.99976L1 6.99976" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                         <path d="M9.9502 0.975414L16.0002 6.99941L9.9502 13.0244" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>

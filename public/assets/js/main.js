@@ -1096,7 +1096,7 @@
 	var slider = new Swiper('.tp-product-related-slider-active', {
 		slidesPerView: 4,
 		spaceBetween: 24,
-		loop: true,
+		loop: false,
 		rtl: rtl_setting,
 		enteredSlides: false,
 		pagination: {
@@ -1667,6 +1667,15 @@
 	new WOW().init();
 
 	function tp_ecommerce() {
+
+        $('#amount').on('input', function (e, data) {
+            $("#amount").val(data?.min + ' XAF - ' + data?.max + ' XAF');
+            $("#amount").attr('min', data?.min);
+            $("#amount").attr('max', data?.max);
+            // this.value = data.somedata;
+            // console.log(data);
+            //canvas resize and upload script
+        });
 		$('.tp-cart-minus').on('click', function () {
 			var $input = $(this).parent().find('input');
 			var count = parseInt($input.val()) - 1;
@@ -1685,27 +1694,25 @@
 
 		$("#slider-range").slider({
 			range: true,
-			min: 0,
-			max: 500,
-			values: [75, 300],
+			min: 500,
+			max: 50000,
+			values: [500, 50000],
 			slide: function (event, ui) {
-				$("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+				// $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+                $('#amount').trigger('input', [{min: ui.values[0], max: ui.values[1]}]);
 			}
 		});
-		$("#amount").val("$" + $("#slider-range").slider("values", 0) +
-			" - $" + $("#slider-range").slider("values", 1));
-
-		$("#slider-range-offcanvas").slider({
-			range: true,
-			min: 0,
-			max: 500,
-			values: [75, 300],
-			slide: function (event, ui) {
-				$("#amount-offcanvas").val("$" + ui.values[0] + " - $" + ui.values[1]);
-			}
-		});
-		$("#amount-offcanvas").val("$" + $("#slider-range-offcanvas").slider("values", 0) +
-			" - $" + $("#slider-range-offcanvas").slider("values", 1));
+		$("#amount").val($("#amount").data()?.min + " XAF" + $("#amount").data()?.max + " XAF");
+		// $("#slider-range-offcanvas").slider({
+		// 	range: true,
+		// 	min: 0,
+		// 	max: 500,
+		// 	values: [75, 300],
+		// 	slide: function (event, ui) {
+		// 		$("#amount-offcanvas").val('444');
+		// 	}
+		// });
+		// $("#amount-offcanvas").val("44");
 
 
 
@@ -1746,16 +1753,6 @@
 		// 20. Shipping Box Toggle Js
 		$('#ship-box').on('click', function () {
 			$('#ship-box-info').slideToggle(1000);
-		});
-
-		$("#slider-range").slider({
-			range: true,
-			min: 0,
-			max: 500,
-			values: [75, 300],
-			slide: function (event, ui) {
-			  $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
-			},
 		});
 	}
 	tp_ecommerce();

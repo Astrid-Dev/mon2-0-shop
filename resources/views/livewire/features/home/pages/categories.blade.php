@@ -1,21 +1,21 @@
 <div>
-    <livewire:shared.components.breadcrumbs :data="$breadcrumbsData" />
+    <livewire:shared.components.breadcrumbs wire:key="'breadcrumbs-'.rand()" :data="$breadcrumbsData" />
 
     <section class="tp-banner-area pb-30">
         <div class="container">
             <div class="row">
                 @foreach($someAds as $i => $ad)
                     @if($i === 0)
-                        <div class="col-xl-8 col-lg-7">
+                        <div wire:key="'some-ad-'.$ad->id.rand()" class="col-xl-8 col-lg-7">
                             <div class="tp-banner-item tp-banner-height p-relative mb-30 z-index-1 fix">
                                 <div class="tp-banner-thumb include-bg transition-3" style="background: url({{asset(asset("assets/img/product/banner/product-banner-1.jpg"))}})"></div>
                                 <div class="tp-banner-content">
                                     <span>{{ __('home.some_ads.sale_off1') }}</span>
                                     <h3 class="tp-banner-title w-50">
-                                        <a class="max-lines-2" href="product-details.html">{{$ad->name}}</a>
+                                        <a class="max-lines-2" href="{{$ad->details_page_link}}">{{$ad->name}}</a>
                                     </h3>
                                     <div class="tp-banner-btn">
-                                        <a href="product-details.html" class="tp-link-btn">{{ __('home.some_ads.shop_now') }}
+                                        <a href="{{$ad->details_page_link}}" class="tp-link-btn">{{ __('home.some_ads.shop_now') }}
                                             <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M13.9998 6.19656L1 6.19656" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                 <path d="M8.75674 0.975394L14 6.19613L8.75674 11.4177" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -26,16 +26,16 @@
                             </div>
                         </div>
                     @else
-                        <div class="col-xl-4 col-lg-5">
+                        <div wire:key="'some-ad-'.$ad->id.rand()" class="col-xl-4 col-lg-5">
                             <div class="tp-banner-item tp-banner-item-sm tp-banner-height p-relative mb-30 z-index-1 fix">
                                 <div class="tp-banner-thumb include-bg transition-3" style="background: url({{asset("assets/img/product/banner/product-banner-2.jpg")}})"></div>
                                 <div class="tp-banner-content">
                                     <h3 class="tp-banner-title w-75">
-                                        <a class="max-lines-2" href="product-details.html">{{$ad->name}}</a>
+                                        <a class="max-lines-2" href="{{$ad->details_page_link}}">{{$ad->name}}</a>
                                     </h3>
                                     <p>{{ __('home.some_ads.sale_off2') }}</p>
                                     <div class="tp-banner-btn">
-                                        <a href="product-details.html" class="tp-link-btn">{{ __('home.some_ads.shop_now') }}
+                                        <a href="{{$ad->details_page_link}}" class="tp-link-btn">{{ __('home.some_ads.shop_now') }}
                                             <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M13.9998 6.19656L1 6.19656" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                 <path d="M8.75674 0.975394L14 6.19613L8.75674 11.4177" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -57,12 +57,12 @@
         <div class="container">
             <div class="row">
                 @foreach($categories as $category)
-                    <div class="col-lg-4 col-sm-6" wire:key="'category-'.{{rand() * $category->id}}">
+                    <div class="col-lg-4 col-sm-6" wire:key="'category-'.rand().$category->id">
                         <div class="tp-category-main-box mb-25 p-relative fix" data-bg-color="#F3F5F7">
                             <div class="tp-category-main-thumb include-bg transition-3" style="background: url({{asset("assets/img/category/main/category-main-1.jpg")}})"></div>
                             <div class="tp-category-main-content">
                                 <h3 class="tp-category-main-title">
-                                    <a href="shop.html">{{$category->label}}</a>
+                                    <a href="{{ LaravelLocalization::localizeUrl('/products').('?categories='.$category->id) }}">{{$category->label}}</a>
                                 </h3>
                                 <span class="tp-category-main-item">{{ trans_choice('categories.products_count', $category->products_count, ['count' => $category->products_count]) }}</span>
                             </div>
@@ -104,9 +104,9 @@
     <!-- category area end -->
 
     <!-- subscribe area start -->
-    <livewire:shared.components.newsletter-subscription />
+    <livewire:shared.components.newsletter-subscription wire:key="'newsletter-'.rand()" />
     <!-- subscribe area end -->
 
-    <livewire:shared.components.product-quick-view />
+    <livewire:shared.components.product-quick-view wire:key="'product-quick-view-'.rand()" />
 
 </div>

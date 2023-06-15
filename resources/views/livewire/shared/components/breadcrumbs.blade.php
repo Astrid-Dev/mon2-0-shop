@@ -15,9 +15,9 @@
                                    </span>
                                     @foreach($breadcrumbsData['breadcrumbs'] as $i => $breadcrumb)
                                         @if($i !== (sizeof($breadcrumdsData['breadcrumbs'] ?? []) - 1))
-                                            <span><a href="#">{{ __($breadcrumb['label']) }}</a></span>
+                                            <span wire:key="'breadcrumb-'.rand()"><a href="#">{{ __($breadcrumb['label']) }}</a></span>
                                         @else
-                                            <span>{{ __($breadcrumb['label']) }}</span>
+                                            <span wire:key="'breadcrumb-'.rand()">{{ __($breadcrumb['label']) }}</span>
                                         @endif
                                     @endforeach
                                     <span>{{__($breadcrumbsData['page_title'])}}</span>
@@ -38,9 +38,9 @@
                                 <div class="breadcrumb__list">
                                     @foreach($breadcrumbsData['breadcrumbs'] as $i => $breadcrumb)
                                         @if($i !== (sizeof($breadcrumdsData['breadcrumbs'] ?? []) - 1))
-                                            <span><a href="#">{{ __($breadcrumb['label']) }}</a></span>
+                                            <span wire:key="'breadcrumb-'.$i.rand()"><a href="#">{{ __($breadcrumb['label']) }}</a></span>
                                         @else
-                                            <span>{{ __($breadcrumb['label']) }}</span>
+                                            <span wire:key="'breadcrumb-'.$i.rand()">{{ __($breadcrumb['label']) }}</span>
                                         @endif
                                     @endforeach
                                 </div>

@@ -26,7 +26,7 @@ class ProductColor extends Model
     protected function name(): Attribute
     {
         return new Attribute(
-            get: fn($value) => json_decode($value),
+            get: fn($value) => $value ? json_decode($value) : null,
             set: fn($value) => json_encode($value)
         );
     }

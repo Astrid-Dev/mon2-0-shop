@@ -1,13 +1,13 @@
 @switch($type)
     @case('deal')
-        <div class="tp-product-offer-item tp-product-item transition-3 swiper-slide {{$customClass}}">
+        <div wire:key="rand().'product-deal-wrapper'.rand()" class="tp-product-offer-item tp-product-item transition-3 swiper-slide {{$customClass}}">
             <div class="tp-product-thumb p-relative fix m-img">
                 <a href="{{$product->details_page_link}}">
                     <img src={{asset("assets/img/product/offer/product-offer-1.jpg")}} alt="product-electronic">
                 </a>
 
                 <!-- product action -->
-                <livewire:shared.components.product-actions :product="$product" />
+                <livewire:shared.components.product-actions wire:key="'product-actions-'.rand()" :product="$product" />
 
                 {{--                                        <div class="tp-product-add-cart-btn-large-wrapper">--}}
                 {{--                                            <button type="button" class="tp-product-add-cart-btn-large">--}}
@@ -28,7 +28,7 @@
             <!-- product content -->
             <div class="tp-product-content">
                 <div class="tp-product-category single-line-ellipsis">
-                    <a href="shop.html">{{$product->category->label}}</a>
+                    <a href="{{ LaravelLocalization::localizeUrl('/products').('?categories='.$product->category->id) }}">{{$product->category->label}}</a>
                 </div>
                 <h3 class="tp-product-title single-line-ellipsis">
                     <a href="{{$product->details_page_link}}">
@@ -36,6 +36,7 @@
                     </a>
                 </h3>
                 <livewire:shared.components.product-rating
+                    wire:key="'product-rating-'.$product->id.rand()"
                     :rating="$product->reviews_avg"
                     :ratersCount="$product->reviews_count"
                 />
@@ -57,9 +58,9 @@
 
             </div>
         </div>
-        @break
+    @break
     @case('sm')
-        <div class="tp-product-sm-item d-flex align-items-center">
+        <div wire:key="'product-sm-'.rand()" class="tp-product-sm-item d-flex align-items-center">
             <div class="tp-product-thumb mr-25 fix">
                 <a href="{{$product->details_page_link}}">
                     <img src={{asset("assets/img/product/sm/product-sm-1.jpg")}} alt="">
@@ -67,7 +68,7 @@
             </div>
             <div class="tp-product-sm-content">
                 <div class="tp-product-category single-line-ellipsis">
-                    <a href="shop.html">{{$product->category->label}}</a>
+                    <a href="{{ LaravelLocalization::localizeUrl('/products').('?categories='.$product->category->id) }}">{{$product->category->label}}</a>
                 </div>
                 <h3 class="tp-product-title">
                     <a class="max-lines-3" style="white-space: normal" href="{{$product->details_page_link}}">
@@ -76,6 +77,7 @@
                 </h3>
 
                 <livewire:shared.components.product-rating
+                    wire:key="'product-rating-'.$product->id.rand()"
                     :rating="$product->reviews_avg"
                     :ratersCount="$product->reviews_count"/>
                 <div class="tp-product-price-wrapper">
@@ -86,43 +88,62 @@
                 </div>
             </div>
         </div>
-        @break
+    @break
+    @case('listing')
+        <div wire:key="'product-listing-'.rand()" class="tp-product-item-2 mb-40">
+            <div class="tp-product-thumb-2 p-relative z-index-1 fix w-img">
+                <a href="{{$product->details_page_link}}">
+                    <img src={{asset("assets/img/product/2/prodcut-1.jpg")}} alt="">
+                </a>
+
+                <livewire:shared.components.product-badges
+                    :product="$product"
+                    :key="'product-badge-'.$product->id.rand()" />
+
+                <!-- product action -->
+                <livewire:shared.components.product-actions
+                    :key="'product-actions-'.$product->id.rand()"
+                    :product="$product" :type="2" />
+            </div>
+            <div class="tp-product-content-2 pt-15">
+                <div class="tp-product-tag-2">
+                    <a href="{{ LaravelLocalization::localizeUrl('/products').('?categories='.$product->category->id) }}">{{$product->category->label}}</a>
+                </div>
+                <h3 class="tp-product-title-2">
+                    <a href="{{$product->details_page_link}}" class="max-lines-2">{{$product->name}}</a>
+                </h3>
+                <livewire:shared.components.product-rating
+                    :key="'product-rating-'.rand().$product->id"
+                    :reviewDisplayType="'none'"
+                    :rating="$product->reviews_avg"
+                    :ratersCount="$product->reviews_count"/>
+                <div class="tp-product-price-wrapper-2">
+                    <span class="tp-product-price-2 new-price">{{$product->formatted_price->new}} XAF</span>
+                    @if($product->is_in_promotion)
+                        <span class="tp-product-price-2 old-price">{{$product->formatted_price->old}} XAF</span>
+                    @endif
+                </div>
+            </div>
+        </div>
+    @break
     @default
-        <div class="tp-product-item p-relative transition-3 mb-25 {{$customClass}}">
+        <div wire:key="'product-simple-'.rand()" class="tp-product-item p-relative transition-3 mb-25 {{$customClass}}">
             <div class="tp-product-thumb p-relative fix m-img">
                 <a href="{{$product->details_page_link}}">
                     <img src={{asset("assets/img/product/product-1.jpg")}} alt="product-electronic">
                 </a>
 
-                @if($product->is_in_promotion)
-                    <!-- product badge -->
-                    <div class="tp-product-badge">
-                        <span class="product-offer">-{{$product->promotion->discount_percentage}}%</span>
-                    </div>
-                @endif
-
-                {{--            <!-- product badge -->--}}
-                {{--            <div class="tp-product-badge">--}}
-                {{--                <span class="product-hot">Hot</span>--}}
-                {{--            </div>--}}
-
-                {{--            <!-- product badge -->--}}
-                {{--            <div class="tp-product-badge">--}}
-                {{--                <span class="product-trending">Trending</span>--}}
-                {{--            </div>--}}
-
-                {{--            <!-- product badge -->--}}
-                {{--            <div class="tp-product-badge">--}}
-                {{--                <span class="product-sale">Sale</span>--}}
-                {{--            </div>--}}
+                <livewire:shared.components.product-badges
+                    :product="$product"
+                    :key="'product-badge-'.$product->id.rand()" />
 
                 <!-- product action -->
-                <livewire:shared.components.product-actions :product="$product" />
+                <livewire:shared.components.product-actions wire:key="'product-actions-'.$product->id.rand()" :product="$product" />
             </div>
             <!-- product content -->
             <div class="tp-product-content">
                 <div class="tp-product-category single-line-ellipsis">
-                    <a href="shop.html">{{$product->category->label}}</a>
+                    <a href="{{ LaravelLocalization::localizeUrl('/products').('?categories='.$product->category->id) }}">{{$product->category->label}}</a>
                 </div>
                 <h3 class="tp-product-title single-line-ellipsis">
                     <a href="{{$product->details_page_link}}">
@@ -130,6 +151,7 @@
                     </a>
                 </h3>
                 <livewire:shared.components.product-rating
+                    wire:key="'product-rating-'.rand().$product->id"
                     :rating="$product->reviews_avg"
                     :ratersCount="$product->reviews_count"/>
                 <div class="tp-product-price-wrapper">
@@ -140,4 +162,5 @@
                 </div>
             </div>
         </div>
+    @break
 @endswitch

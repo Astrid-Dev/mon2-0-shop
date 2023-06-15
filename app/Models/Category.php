@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Livewire\Features\Products\Pages\Products;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -36,6 +37,13 @@ class Category extends Model
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
+    }
+
+    public function deepProducts(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            related: Products::class,
+        );
     }
 
     public function providers(): HasManyThrough

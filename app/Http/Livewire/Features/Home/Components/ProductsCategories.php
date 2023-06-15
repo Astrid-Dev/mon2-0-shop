@@ -16,9 +16,15 @@ class ProductsCategories extends Component
         $this->randomCategory = Category::query()
             ->with(['descendants', 'products' => function ($query) {
                 $query->with('category')
+//                    ->whereHas('category', function ($subQuery) {
+//                        $subQuery->whereColumn('products.category_id', '=', 'categories.parent_id')
+//                        ->orWhereColumn('products.category_id', '=', 'categories.id');
+//                    })
+                    ->inRandomOrder()
                     ->take(6);
             }])
             ->whereNull('parent_id')
+//            ->whereHas('products')
             ->inRandomOrder()
             ->first();
 

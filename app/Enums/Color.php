@@ -2,9 +2,10 @@
 
 namespace App\Enums;
 
+use BenSampo\Enum\Contracts\LocalizedEnum;
 use BenSampo\Enum\Enum;
 
-final class Color extends Enum
+final class Color extends Enum implements LocalizedEnum
 {
     const WHITE = '#ffffff';
     const BLACK = '#000000';
@@ -27,12 +28,18 @@ final class Color extends Enum
     const SKYBLUE = '#87ceeb';
     const LIGHTGREEN = '#90ee90';
     const DARKGREEN = '#006400';
-    const LIME = '#00ff00';
     const DARKRED = '#8b0000';
-    const DARKPURPLE = '#800080';
     const DARKPINK = '#ff1493';
     const DARKORANGE = '#ff8c00';
     const DARKGRAY = '#a9a9a9';
     const LIGHTGRAY = '#d3d3d3';
     const DARKBROWN = '#654321';
+
+    public static function getSortedValues(): array
+    {
+        $temp = self::getValues();
+        sort($temp);
+
+        return $temp;
+    }
 }

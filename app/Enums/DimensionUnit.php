@@ -2,9 +2,10 @@
 
 namespace App\Enums;
 
+use BenSampo\Enum\Contracts\LocalizedEnum;
 use BenSampo\Enum\Enum;
 
-final class DimensionUnit extends Enum
+final class DimensionUnit extends Enum implements LocalizedEnum
 {
     const SQUARE_METER = '㎡';
     const SQUARE_CENTIMETER = '㎠';

@@ -53,10 +53,10 @@
                             <div class="tab-pane fade show active" id="new-tab-pane" role="tabpanel" aria-labelledby="new-tab" tabindex="0">
                                 <div class="row">
                                     @foreach($newProducts as $product)
-                                        <div class="col-xl-3 col-lg-3 col-sm-6">
-                                            <livewire:features.home.components.product-item
+                                        <div wire:key="'new-product-wrapper-'.$product->id.rand()" class="col-xl-3 col-lg-3 col-sm-6">
+                                            <livewire:shared.components.product-item
                                                 :product="$product"
-                                                :wire:key="'product-item-'.$product->id"
+                                                :key="'new-product-item-'.$product->id.rand()"
                                             />
                                         </div>
                                     @endforeach
@@ -65,10 +65,10 @@
                             <div class="tab-pane fade" id="featured-tab-pane" role="tabpanel" aria-labelledby="featured-tab" tabindex="0">
                                 <div class="row">
                                     @foreach($featuredProducts as $product)
-                                        <div class="col-xl-3 col-lg-3 col-sm-6">
-                                            <livewire:features.home.components.product-item
+                                        <div wire:key="'featured-product-wrapper-'.$product->id.rand()" class="col-xl-3 col-lg-3 col-sm-6">
+                                            <livewire:shared.components.product-item
                                                 :product="$product"
-                                                :wire:key="'product-item-'.$product->id"
+                                                :key="'featured-product-item-'.$product->id.rand()"
                                             />
                                         </div>
                                     @endforeach
@@ -77,10 +77,10 @@
                             <div class="tab-pane fade" id="topsell-tab-pane" role="tabpanel" aria-labelledby="topsell-tab" tabindex="0">
                                 <div class="row">
                                     @foreach($topSellersProducts as $product)
-                                        <div class="col-xl-3 col-lg-3 col-sm-6">
-                                            <livewire:features.home.components.product-item
+                                        <div wire:key="'top-seller-product-wrapper-'.$product->id.rand()" class="col-xl-3 col-lg-3 col-sm-6">
+                                            <livewire:shared.components.product-item
                                                 :product="$product"
-                                                :wire:key="'product-item-'.(rand() * $product->id)"
+                                                :key="'top-seller-product-item-'.rand().$product->id"
                                             />
                                         </div>
                                     @endforeach

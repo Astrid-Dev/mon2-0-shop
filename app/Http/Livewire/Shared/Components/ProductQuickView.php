@@ -7,23 +7,31 @@ use Livewire\Component;
 
 class ProductQuickView extends Component
 {
-    public Product $product;
+    private $product = null;
+    public $isOpen = false;
 
-    protected $listeners = ['postAdded' => 'incrementPostCount'];
+    protected $listeners = ['onQuickViewProduct'];
 
-    public function incrementPostCount()
+    public function onQuickViewProduct(Product $product)
     {
-        \Debugbar::error('onQuickViewProduct');
+        $this->product = $product;
+        $this->openModal();
     }
 
-    public function onQuickViewProduct()
+    public function openModal()
     {
-//        $this->product = $product;
-        \Debugbar::error('onQuickViewProduct');
+        $this->isOpen = true;
+    }
+
+    public function closeModal()
+    {
+        $this->isOpen = false;
     }
 
     public function render()
     {
-        return view('livewire.shared.components.product-quick-view');
+        return view('livewire.shared.components.product-quick-view', [
+            'product' => $this->product
+        ]);
     }
 }

@@ -12,7 +12,6 @@ class ProductActions extends Component
 
     public function quickViewProduct()
     {
-        \Debugbar::log($this->product);
         $this->emit('onQuickViewProduct', $this->product);
     }
 

@@ -1,9 +1,16 @@
 <div>
-    <div class="modal fade tp-product-modal" id="producQuickViewModal" tabindex="-1" aria-labelledby="producQuickViewModal" aria-hidden="true">
+    <div class="modal fade tp-product-modal" id="producQuickViewModal" tabindex="-1"
+         aria-labelledby="producQuickViewModal" aria-hidden="true"
+         wire:ignore.self
+    >
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="tp-product-modal-content d-lg-flex align-items-start">
-                    <button type="button" class="tp-product-modal-close-btn" data-bs-toggle="modal" data-bs-target="#producQuickViewModal"><i class="fa-regular fa-xmark"></i></button>
+                    <button type="button" class="tp-product-modal-close-btn" data-bs-toggle="modal"
+                            wire:click="closeModal"
+                            data-bs-target="#producQuickViewModal">
+                        <i class="fa-regular fa-xmark"></i>
+                    </button>
                     <div class="tp-product-details-thumb-wrapper tp-tab d-sm-flex">
                         <nav>
                             <div class="nav nav-tabs flex-sm-column " id="productDetailsNavThumb" role="tablist">
