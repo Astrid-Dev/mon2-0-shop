@@ -380,7 +380,7 @@
                                                         <h3 class="tp-product-details-review-number-title">{{ __('product_details.reviews.subtitle') }}</h3>
                                                         <div class="tp-product-details-review-summery d-flex align-items-center">
                                                             <div class="tp-product-details-review-summery-value">
-                                                                <span>{{$product->reviews_avg ?? 0}}</span>
+                                                                <span>{{number_format($product->reviews_avg ?? 0, 1)}}</span>
                                                             </div>
                                                             <livewire:shared.components.product-rating
                                                                 wire:key="'product-rating-'.rand().$product->id"
@@ -388,60 +388,19 @@
                                                                 :ratersCount="$product->reviews_count"/>
                                                         </div>
                                                         <div class="tp-product-details-review-rating-list">
-                                                            <!-- single item -->
-                                                            <div class="tp-product-details-review-rating-item d-flex align-items-center">
-                                                                <span>5 Start</span>
-                                                                <div class="tp-product-details-review-rating-bar">
-                                                                    <span class="tp-product-details-review-rating-bar-inner" data-width="82%"></span>
-                                                                </div>
-                                                                <div class="tp-product-details-review-rating-percent">
-                                                                    <span>82%</span>
-                                                                </div>
-                                                            </div> <!-- end single item -->
-
-                                                            <!-- single item -->
-                                                            <div class="tp-product-details-review-rating-item d-flex align-items-center">
-                                                                <span>4 Start</span>
-                                                                <div class="tp-product-details-review-rating-bar">
-                                                                    <span class="tp-product-details-review-rating-bar-inner" data-width="30%"></span>
-                                                                </div>
-                                                                <div class="tp-product-details-review-rating-percent">
-                                                                    <span>30%</span>
-                                                                </div>
-                                                            </div> <!-- end single item -->
-
-                                                            <!-- single item -->
-                                                            <div class="tp-product-details-review-rating-item d-flex align-items-center">
-                                                                <span>3 Start</span>
-                                                                <div class="tp-product-details-review-rating-bar">
-                                                                    <span class="tp-product-details-review-rating-bar-inner" data-width="15%"></span>
-                                                                </div>
-                                                                <div class="tp-product-details-review-rating-percent">
-                                                                    <span>15%</span>
-                                                                </div>
-                                                            </div> <!-- end single item -->
-
-                                                            <!-- single item -->
-                                                            <div class="tp-product-details-review-rating-item d-flex align-items-center">
-                                                                <span>2 Start</span>
-                                                                <div class="tp-product-details-review-rating-bar">
-                                                                    <span class="tp-product-details-review-rating-bar-inner" data-width="6%"></span>
-                                                                </div>
-                                                                <div class="tp-product-details-review-rating-percent">
-                                                                    <span>6%</span>
-                                                                </div>
-                                                            </div> <!-- end single item -->
-
-                                                            <!-- single item -->
-                                                            <div class="tp-product-details-review-rating-item d-flex align-items-center">
-                                                                <span>1 Start</span>
-                                                                <div class="tp-product-details-review-rating-bar">
-                                                                    <span class="tp-product-details-review-rating-bar-inner" data-width="10%"></span>
-                                                                </div>
-                                                                <div class="tp-product-details-review-rating-percent">
-                                                                    <span>10%</span>
-                                                                </div>
-                                                            </div> <!-- end single item -->
+                                                            @foreach($productRatings as $rating => $count)
+                                                                <?php $percentage = number_format((($count * 100) / ($product->reviews_count > 0 ? $product->reviews_count : 1)), 1) ?>
+                                                                <!-- single item -->
+                                                                <div wire:key="'rating-'.$rating" class="tp-product-details-review-rating-item d-flex align-items-center">
+                                                                    <span>{{$rating}} Start</span>
+                                                                    <div class="tp-product-details-review-rating-bar">
+                                                                        <span class="tp-product-details-review-rating-bar-inner" style="width: {{$percentage}}%"></span>
+                                                                    </div>
+                                                                    <div class="tp-product-details-review-rating-percent">
+                                                                        <span>{{$percentage}}%</span>
+                                                                    </div>
+                                                                </div> <!-- end single item -->
+                                                            @endforeach
                                                         </div>
                                                     </div>
 

@@ -5,6 +5,7 @@ use App\Enums\Color;
 use App\Enums\DimensionType;
 use App\Enums\DimensionUnit;
 use App\Enums\ImageType;
+use App\Enums\ProviderStatus;
 use App\Enums\SiblingType;
 use App\Enums\StockType;
 
@@ -89,6 +90,12 @@ return [
         Color::SILVER => 'Silver',
         Color::SKYBLUE => 'Sky Blue',
         Color::LIGHTGRAY => 'Light Gray',
+    ],
+
+    ProviderStatus::class => [
+        ProviderStatus::APPROVED => 'Approved',
+        ProviderStatus::PENDING => 'Pending',
+        ProviderStatus::UNAPPROVED => 'Unapproved',
     ]
 
 ];

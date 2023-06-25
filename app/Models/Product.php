@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Enums\StockType;
+use App\Traits\HasBookmark;
+use App\Traits\HasImage;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,9 +17,10 @@ use stdClass;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, HasImage, HasBookmark;
 
     protected $fillable = [
+        'code',
         'name',
         'description',
         'details',
@@ -34,7 +37,8 @@ class Product extends Model
     ];
 
     protected $with = [
-        'promotion'
+        'promotion',
+//        'mainImage'
     ];
 
     protected $withCount = [

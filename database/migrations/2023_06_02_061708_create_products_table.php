@@ -28,6 +28,7 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
+            $table->string('code')->unique();
             $table->string('name');
             $table->text('description');
             $table->text('details');

@@ -68,45 +68,72 @@
                                     </div>
                                 </div>
                                 <div class="col-xl-3 col-lg-3 col-md-8 col-6">
-                                    <div class="tp-header-main-right d-flex align-items-center justify-content-end">
-                                        <div class="tp-header-login d-none d-lg-block">
-                                            <a href="profile.html" class="d-flex align-items-center">
-                                                <div class="tp-header-login-icon">
-                                    <span>
-                                       <svg width="17" height="21" viewBox="0 0 17 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                          <circle cx="8.57894" cy="5.77803" r="4.77803" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                          <path fill-rule="evenodd" clip-rule="evenodd" d="M1.00002 17.2014C0.998732 16.8655 1.07385 16.5337 1.2197 16.2311C1.67736 15.3158 2.96798 14.8307 4.03892 14.611C4.81128 14.4462 5.59431 14.336 6.38217 14.2815C7.84084 14.1533 9.30793 14.1533 10.7666 14.2815C11.5544 14.3367 12.3374 14.4468 13.1099 14.611C14.1808 14.8307 15.4714 15.27 15.9291 16.2311C16.2224 16.8479 16.2224 17.564 15.9291 18.1808C15.4714 19.1419 14.1808 19.5812 13.1099 19.7918C12.3384 19.9634 11.5551 20.0766 10.7666 20.1304C9.57937 20.2311 8.38659 20.2494 7.19681 20.1854C6.92221 20.1854 6.65677 20.1854 6.38217 20.1304C5.59663 20.0773 4.81632 19.9641 4.04807 19.7918C2.96798 19.5812 1.68652 19.1419 1.2197 18.1808C1.0746 17.8747 0.999552 17.5401 1.00002 17.2014Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                       </svg>
-                                    </span>
-                                                </div>
-                                                <div class="tp-header-login-content d-none d-xl-block">
-                                                    <span>Hello, Sign In</span>
-                                                    <h5 class="tp-header-login-title">Your Account</h5>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="tp-header-action d-flex align-items-center ml-50">
-                                            <div class="tp-header-action-item d-none d-lg-block">
-                                                <a href="wishlist.html" class="tp-header-action-btn">
-                                                    <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.239 18.8538C13.4096 17.5179 15.4289 15.9456 17.2607 14.1652C18.5486 12.8829 19.529 11.3198 20.1269 9.59539C21.2029 6.25031 19.9461 2.42083 16.4289 1.28752C14.5804 0.692435 12.5616 1.03255 11.0039 2.20148C9.44567 1.03398 7.42754 0.693978 5.57894 1.28752C2.06175 2.42083 0.795919 6.25031 1.87187 9.59539C2.46978 11.3198 3.45021 12.8829 4.73806 14.1652C6.56988 15.9456 8.58917 17.5179 10.7598 18.8538L10.9949 19L11.239 18.8538Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        <path d="M7.26062 5.05302C6.19531 5.39332 5.43839 6.34973 5.3438 7.47501" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                    <span class="tp-header-action-badge">4</span>
+                                    @auth()
+                                        <div class="tp-header-main-right d-flex align-items-center justify-content-end">
+                                            <div class="tp-header-login d-none d-lg-block">
+                                                <a href="{{ LaravelLocalization::localizeUrl(route('dashboard.profile')) }}" class="d-flex align-items-center">
+                                                    <div class="tp-header-login-icon">
+                                                    <span>
+                                                       <svg width="17" height="21" viewBox="0 0 17 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                          <circle cx="8.57894" cy="5.77803" r="4.77803" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                          <path fill-rule="evenodd" clip-rule="evenodd" d="M1.00002 17.2014C0.998732 16.8655 1.07385 16.5337 1.2197 16.2311C1.67736 15.3158 2.96798 14.8307 4.03892 14.611C4.81128 14.4462 5.59431 14.336 6.38217 14.2815C7.84084 14.1533 9.30793 14.1533 10.7666 14.2815C11.5544 14.3367 12.3374 14.4468 13.1099 14.611C14.1808 14.8307 15.4714 15.27 15.9291 16.2311C16.2224 16.8479 16.2224 17.564 15.9291 18.1808C15.4714 19.1419 14.1808 19.5812 13.1099 19.7918C12.3384 19.9634 11.5551 20.0766 10.7666 20.1304C9.57937 20.2311 8.38659 20.2494 7.19681 20.1854C6.92221 20.1854 6.65677 20.1854 6.38217 20.1304C5.59663 20.0773 4.81632 19.9641 4.04807 19.7918C2.96798 19.5812 1.68652 19.1419 1.2197 18.1808C1.0746 17.8747 0.999552 17.5401 1.00002 17.2014Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                       </svg>
+                                                    </span>
+                                                    </div>
+                                                    <div class="tp-header-login-content d-none d-xl-block">
+                                                        <span>{{ __('helpers.hi') }}, {{auth()->user()->username}}</span>
+{{--                                                        <h5 class="tp-header-login-title">Your Account</h5>--}}
+                                                    </div>
                                                 </a>
                                             </div>
-                                            <div class="tp-header-action-item d-lg-none">
-                                                <button type="button" class="tp-header-action-btn tp-offcanvas-open-btn">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="16" viewBox="0 0 30 16">
-                                                        <rect x="10" width="20" height="2" fill="currentColor"/>
-                                                        <rect x="5" y="7" width="25" height="2" fill="currentColor"/>
-                                                        <rect x="10" y="14" width="20" height="2" fill="currentColor"/>
-                                                    </svg>
-                                                </button>
-                                            </div>
+                                            <div class="tp-header-action d-flex align-items-center ml-50">
+                                                <div class="tp-header-action-item d-none d-lg-block">
+                                                    <a href="wishlist.html" class="tp-header-action-btn">
+                                                        <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M11.239 18.8538C13.4096 17.5179 15.4289 15.9456 17.2607 14.1652C18.5486 12.8829 19.529 11.3198 20.1269 9.59539C21.2029 6.25031 19.9461 2.42083 16.4289 1.28752C14.5804 0.692435 12.5616 1.03255 11.0039 2.20148C9.44567 1.03398 7.42754 0.693978 5.57894 1.28752C2.06175 2.42083 0.795919 6.25031 1.87187 9.59539C2.46978 11.3198 3.45021 12.8829 4.73806 14.1652C6.56988 15.9456 8.58917 17.5179 10.7598 18.8538L10.9949 19L11.239 18.8538Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                            <path d="M7.26062 5.05302C6.19531 5.39332 5.43839 6.34973 5.3438 7.47501" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        </svg>
+                                                        <span class="tp-header-action-badge">{{$bookmarksCount}}</span>
+                                                    </a>
+                                                </div>
+                                                <div class="tp-header-action-item d-lg-none">
+                                                    <button type="button" class="tp-header-action-btn tp-offcanvas-open-btn">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="16" viewBox="0 0 30 16">
+                                                            <rect x="10" width="20" height="2" fill="currentColor"/>
+                                                            <rect x="5" y="7" width="25" height="2" fill="currentColor"/>
+                                                            <rect x="10" y="14" width="20" height="2" fill="currentColor"/>
+                                                        </svg>
+                                                    </button>
+                                                </div>
 
+                                            </div>
                                         </div>
-                                    </div>
+                                    @else
+                                        <div class="tp-header-main-right d-flex align-items-center justify-content-end">
+                                            <div class="tp-header-login d-flex flex-wrap">
+                                                <a href="{{ LaravelLocalization::localizeUrl('/login') }}" class="btn text-primary">
+                                                    <i class="fa fa-sign-in"></i>
+                                                    <span>{{ __('header.main_menus.others.sign_in') }}</span>
+                                                </a>
+                                                <a href="{{ LaravelLocalization::localizeUrl('/register') }}" class="btn text-secondary">
+                                                    <i class="fa fa-user-plus"></i>
+                                                    <span>{{ __('header.main_menus.others.register') }}</span>
+                                                </a>
+                                            </div>
+                                            <div class="tp-header-action d-flex align-items-center ml-50 p-absolute">
+                                                <div class="tp-header-action-item d-lg-none">
+                                                    <button type="button" class="tp-header-action-btn tp-offcanvas-open-btn">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="16" viewBox="0 0 30 16">
+                                                            <rect x="10" width="20" height="2" fill="currentColor"/>
+                                                            <rect x="5" y="7" width="25" height="2" fill="currentColor"/>
+                                                            <rect x="10" y="14" width="20" height="2" fill="currentColor"/>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    @endauth
                                 </div>
                             </div>
                         </div>
@@ -168,10 +195,22 @@
                                     <div class="col-xl-3 col-lg-3">
                                         <div class="tp-header-contact d-flex align-items-center justify-content-end">
                                             <div class="tp-header-contact-content">
-                                                <button class="btn btn-outline-primary">
-                                                    <i class="fa-thin fa-users-gear fa-beat-fade text-danger"></i>
-                                                    {{ __('header.main_menus.others.custom_products') }}
-                                                </button>
+                                                @if(!!$linkedProvider)
+                                                    <button class="btn btn-outline-primary">
+                                                        <i class="fa-thin fa-rectangle-history-circle-plus fa-beat-fade text-danger"></i>
+                                                        {{ __('header.main_menus.others.add_product') }}
+                                                    </button>
+                                                @elseif(auth()->check())
+                                                    <a class="btn btn-outline-primary" href="{{ LaravelLocalization::localizeUrl('/become_a_seller') }}">
+                                                        <i class="fa-thin fa-shop fa-beat-fade text-danger"></i>
+                                                        {{ __('header.main_menus.others.become_seller') }}
+                                                    </a>
+                                                @else
+                                                    <button class="btn btn-outline-primary">
+                                                        <i class="fa-thin fa-users-gear fa-beat-fade text-danger"></i>
+                                                        {{ __('header.main_menus.others.custom_products') }}
+                                                    </button>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -203,18 +242,45 @@
                             </div>
                             <div class="col-xl-3 col-lg-3 col-md-3 col-6">
                                 <div class="tp-header-action d-flex align-items-center justify-content-end ml-50">
-                                    <div class="tp-header-action-item d-none d-lg-block">
-                                        <a class="btn">
-                                            <i class="fa-solid fa-users-gear text-danger"></i>
-                                        </a>
-                                        <a href="wishlist.html" class="tp-header-action-btn">
-                                            <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.239 18.8538C13.4096 17.5179 15.4289 15.9456 17.2607 14.1652C18.5486 12.8829 19.529 11.3198 20.1269 9.59539C21.2029 6.25031 19.9461 2.42083 16.4289 1.28752C14.5804 0.692435 12.5616 1.03255 11.0039 2.20148C9.44567 1.03398 7.42754 0.693978 5.57894 1.28752C2.06175 2.42083 0.795919 6.25031 1.87187 9.59539C2.46978 11.3198 3.45021 12.8829 4.73806 14.1652C6.56988 15.9456 8.58917 17.5179 10.7598 18.8538L10.9949 19L11.239 18.8538Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M7.26062 5.05302C6.19531 5.39332 5.43839 6.34973 5.3438 7.47501" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                            <span class="tp-header-action-badge">4</span>
-                                        </a>
-                                    </div>
+                                    @if(!!$linkedProvider)
+                                        <div class="tp-header-action-item d-none d-lg-block">
+                                            <a class="btn" title="{{ __('header.main_menus.others.add_product') }}">
+                                                <i class="fa-solid fa-rectangle-history-circle-plus text-danger"></i>
+                                            </a>
+                                            <a href="wishlist.html" class="tp-header-action-btn">
+                                                <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M11.239 18.8538C13.4096 17.5179 15.4289 15.9456 17.2607 14.1652C18.5486 12.8829 19.529 11.3198 20.1269 9.59539C21.2029 6.25031 19.9461 2.42083 16.4289 1.28752C14.5804 0.692435 12.5616 1.03255 11.0039 2.20148C9.44567 1.03398 7.42754 0.693978 5.57894 1.28752C2.06175 2.42083 0.795919 6.25031 1.87187 9.59539C2.46978 11.3198 3.45021 12.8829 4.73806 14.1652C6.56988 15.9456 8.58917 17.5179 10.7598 18.8538L10.9949 19L11.239 18.8538Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M7.26062 5.05302C6.19531 5.39332 5.43839 6.34973 5.3438 7.47501" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                                <span class="tp-header-action-badge">{{$bookmarksCount}}</span>
+                                            </a>
+                                        </div>
+                                    @elseif(auth()->check())
+                                        <div class="tp-header-action-item d-none d-lg-block">
+                                            <a class="btn" title="{{ __('header.main_menus.others.become_seller') }}" href="{{ LaravelLocalization::localizeUrl('/become_a_seller') }}">
+                                                <i class="fa-solid fa-shop text-danger"></i>
+                                            </a>
+                                            <a href="wishlist.html" class="tp-header-action-btn">
+                                                <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M11.239 18.8538C13.4096 17.5179 15.4289 15.9456 17.2607 14.1652C18.5486 12.8829 19.529 11.3198 20.1269 9.59539C21.2029 6.25031 19.9461 2.42083 16.4289 1.28752C14.5804 0.692435 12.5616 1.03255 11.0039 2.20148C9.44567 1.03398 7.42754 0.693978 5.57894 1.28752C2.06175 2.42083 0.795919 6.25031 1.87187 9.59539C2.46978 11.3198 3.45021 12.8829 4.73806 14.1652C6.56988 15.9456 8.58917 17.5179 10.7598 18.8538L10.9949 19L11.239 18.8538Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M7.26062 5.05302C6.19531 5.39332 5.43839 6.34973 5.3438 7.47501" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                                <span class="tp-header-action-badge">{{$bookmarksCount}}</span>
+                                            </a>
+                                        </div>
+                                    @else
+                                        <div class="tp-header-action-item d-none d-lg-block">
+                                            <a class="btn" title="{{ __('header.main_menus.others.custom_products') }}">
+                                                <i class="fa-solid fa-users-gear text-danger"></i>
+                                            </a>
+                                            <a class="btn" href="{{ \Mcamara\LaravelLocalization\Facades\LaravelLocalization::localizeUrl('/login') }}" title="{{ __('header.main_menus.others.sign_in') }}">
+                                                <i class="fa-solid fa-sign-in text-primary"></i>
+                                            </a>
+                                            <a class="btn" title="{{ __('header.main_menus.others.register') }}" href="{{ \Mcamara\LaravelLocalization\Facades\LaravelLocalization::localizeUrl('/register') }}">
+                                                <i class="fa-solid fa-user-plus text-secondary"></i>
+                                            </a>
+                                        </div>
+                                    @endif
                                     <div class="tp-header-action-item d-lg-none">
                                         <button type="button" class="tp-header-action-btn tp-offcanvas-open-btn">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="16" viewBox="0 0 30 16">
@@ -309,7 +375,7 @@
                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M11.239 18.8538C13.4096 17.5179 15.4289 15.9456 17.2607 14.1652C18.5486 12.8829 19.529 11.3198 20.1269 9.59539C21.2029 6.25031 19.9461 2.42083 16.4289 1.28752C14.5804 0.692435 12.5616 1.03255 11.0039 2.20148C9.44567 1.03398 7.42754 0.693978 5.57894 1.28752C2.06175 2.42083 0.795919 6.25031 1.87187 9.59539C2.46978 11.3198 3.45021 12.8829 4.73806 14.1652C6.56988 15.9456 8.58917 17.5179 10.7598 18.8538L10.9949 19L11.239 18.8538Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                             <path d="M7.26062 5.05302C6.19531 5.39332 5.43839 6.34973 5.3438 7.47501" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                         </svg>
-                                                        <span class="tp-header-action-badge">4</span>
+                                                        <span class="tp-header-action-badge">{{$bookmarksCount}}</span>
                                                     </a>
                                                 </div>
                                                 <div class="tp-header-action-item tp-header-hamburger mr-20 d-xl-none">

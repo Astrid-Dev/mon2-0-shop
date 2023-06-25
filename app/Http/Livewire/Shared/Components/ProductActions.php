@@ -9,6 +9,12 @@ class ProductActions extends Component
 {
     public Product $product;
     public $type = 1;
+    public $isBookmarked = false;
+
+    public function mount()
+    {
+
+    }
 
     public function quickViewProduct()
     {

@@ -16,4 +16,16 @@
 <script src={{asset("assets/js/imagesloaded-pkgd.js")}}></script>
 <script src={{asset("assets/js/ajax-form.js")}}></script>
 <script src={{asset("assets/js/main.js")}}></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script>
+    window.addEventListener('alert', event => {
+        toastr[event.detail.type](event.detail.message,
+            event.detail.title ?? ''), toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+            "timeOur": 5000
+        }
+    });
+</script>
+

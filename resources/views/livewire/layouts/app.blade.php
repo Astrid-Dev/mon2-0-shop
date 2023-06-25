@@ -1,11 +1,11 @@
 <!doctype html>
-<html class="no-js" lang="zxx">
+<html class="no-js" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <!-- Mirrored from weblearnbd.net/tphtml/shofy-prv/shofy/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 31 May 2023 09:39:48 GMT -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{{$title ? __($title).' | ' : ''}}Mon2-0 Shop</title>
+    <title>{{($title ? __($title).' | ' : '').env('APP_NAME')}}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -284,6 +284,7 @@
 
 
 @include('../../includes/scripts')
+@yield('custom-scripts')
 
 </body>
 

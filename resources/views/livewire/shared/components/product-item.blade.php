@@ -118,7 +118,7 @@
                     :rating="$product->reviews_avg"
                     :ratersCount="$product->reviews_count"/>
                 <div class="tp-product-price-wrapper-2">
-                    <span class="tp-product-price-2 new-price">{{$product->formatted_price->new}} XAF</span>
+                    <span class="tp-product-price-2 new-price fw-bold">{{$product->formatted_price->new}} XAF</span>
                     @if($product->is_in_promotion)
                         <span class="tp-product-price-2 old-price">{{$product->formatted_price->old}} XAF</span>
                     @endif

@@ -18,6 +18,7 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
+            'code' => $this->faker->unique()->creditCardNumber(),
             'name' => $this->faker->words(8, true),
             'description' => $this->faker->paragraph('3'),
             'price' => $this->faker->randomFloat(2, 500, 9000),

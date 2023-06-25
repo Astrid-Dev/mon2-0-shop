@@ -12,4 +12,5 @@
 <link rel="stylesheet" href={{asset("assets/css/spacing.css")}}>
 <link rel="stylesheet" href={{asset("assets/css/main.css")}}>
 <link rel="stylesheet" href={{asset("assets/custom_css/styles.css")}}>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 @livewireStyles

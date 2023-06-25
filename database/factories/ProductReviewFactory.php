@@ -19,7 +19,7 @@ class ProductReviewFactory extends Factory
         return [
             'product_id' => $this->faker->numberBetween(1, 150),
             'user_id' => $this->faker->numberBetween(1, 180),
-            'rating' => $this->faker->randomFloat(1, 1, 5),
+            'rating' => $this->faker->numberBetween(1, 5),
             'comment' => $this->faker->paragraph()
         ];
     }

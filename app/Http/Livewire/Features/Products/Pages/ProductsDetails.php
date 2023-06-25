@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Features\Products\Pages;
 
 use App\Models\Product;
+use Barryvdh\Debugbar\Facades\Debugbar;
 use Livewire\Component;
 
 class ProductsDetails extends Component
@@ -43,17 +44,27 @@ class ProductsDetails extends Component
 
         if ($this->product) {
 
-            $ratings = $this->product->reviews()->select('rating', \DB::raw('count(id) as count'))
+            $ratingsData = $this->product->reviews()->select('rating', \DB::raw('count(id) as count'))
                 ->groupBy('rating')
                 ->get();
 
-            for ($i = 5; $i > 0; $i--) {
-//                $temp = array_filter($ratings, function ($item) {
-//
-//                });
+            $this->productRatings = [
+                "5" => 0,
+                "4" => 0,
+                "3" => 0,
+                "2" => 0,
+                "1" => 0,
+            ];
+
+            foreach ($ratingsData as $ratingData) {
+                $key = intval($ratingData->rating);
+                if ($key >= 1 && $key <= 5) {
+                    $this->productRatings[strval($key)] += $ratingData->count;
+                }
             }
 
-            \Debugbar::log($ratings);
+            \Debugbar::log($ratingsData->toArray());
+            Debugbar::log($this->productRatings);
 
             $this->relatedProducts = Product::query()
                 ->with(['category'])
@@ -85,7 +96,8 @@ class ProductsDetails extends Component
         return view('livewire.features.products.pages.products-details', [
                 'breadcrumbsData' => $this->breadcrumbsData,
                 'productIdentifier' => $this->productIdentifier,
-                'relatedProducts' => $this->relatedProducts
+                'relatedProducts' => $this->relatedProducts,
+                'productRatings' => $this->productRatings
             ])
             ->extends('livewire.layouts.app')
             ->layoutData(['title' => 'products.title']);

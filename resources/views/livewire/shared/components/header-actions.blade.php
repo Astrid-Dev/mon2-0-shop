@@ -23,16 +23,22 @@
     </div>
     <div class="tp-header-top-menu-item tp-header-setting">
         <span class="tp-header-setting-toggle" id="tp-header-setting-toggle">{{ __('header.settings.title') }}</span>
-        <ul>
-            <li>
-                <a href="profile.html">{{ __('header.settings.my_profile') }}</a>
-            </li>
-            <li>
-                <a href="wishlist.html">{{ __('header.settings.favorites') }}</a>
-            </li>
-            <li>
-                <a href="login.html">{{ __('header.settings.logout') }}</a>
-            </li>
-        </ul>
+        @auth()
+            <ul>
+                <li>
+                    <a href="{{ LaravelLocalization::localizeUrl(route('dashboard.profile')) }}">{{ __('header.settings.my_profile') }}</a>
+                </li>
+                <li>
+                    <a href="wishlist.html">{{ __('header.settings.favorites') }}</a>
+                </li>
+                <li>
+                    <form method="POST" action="{{ route('logout') }}" x-data>
+                        @csrf
+
+                        <a type="submit" class="text-danger" @click.prevent="$root.submit();">{{ __('header.settings.logout') }}</a>
+                    </form>
+                </li>
+            </ul>
+        @endauth
     </div>
 </div>
