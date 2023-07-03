@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use Barryvdh\Debugbar\Facades\Debugbar;
+use Exception;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -58,14 +59,14 @@ class Products extends Component
     ];
 
     public $childrenCategories1 = [];
-    private $popularBrands = [];
-    private $topRatedProducts = [];
+    public $popularBrands = [];
+    public $topRatedProducts = [];
     private $products = [];
 
     private $sortingValues = [
         'default',
-        'amount-desc',
-        'amount-asc',
+        'price-desc',
+        'price-asc',
         'reviews-desc',
         'reviews-asc',
         'newest',
@@ -112,6 +113,7 @@ class Products extends Component
         }
 
         $this->status = implode(',', $temp);
+        $this->resetPage();
     }
 
     public function handleSiblings(string $target)
@@ -129,6 +131,7 @@ class Products extends Component
         }
 
         $this->siblings = implode(',', $temp);
+        $this->resetPage();
     }
 
     public function handleCategories($target, $parentId)
@@ -162,6 +165,7 @@ class Products extends Component
             return intval($item);
         }, $temp);
         $this->categories = implode(',', $temp);
+        $this->resetPage();
     }
 
     public function handleColors(string $target)
@@ -179,6 +183,7 @@ class Products extends Component
         }
 
         $this->colors = implode(',', $temp);
+        $this->resetPage();
     }
 
     public function handleBrands($target)
@@ -199,6 +204,7 @@ class Products extends Component
             return intval($item);
         }, $temp);
         $this->brands = implode(',', $temp);
+        $this->resetPage();
     }
 
     public function isConcernedByCategoryFilter(int $categoryId, int | null $parentId = null)
@@ -211,6 +217,7 @@ class Products extends Component
     {
         Debugbar::log($maxPrice);
         Debugbar::log($minPrice);
+        $this->resetPage();
     }
 
     public function handleSorting($target)
@@ -221,15 +228,46 @@ class Products extends Component
         } else {
             $this->sorting = '';
         }
+        $this->resetPage();
     }
 
     public function handleDiscount()
     {
         $this->asset = $this->asset === 'discount' ? '' : 'discount';
+        $this->resetPage();
+    }
+
+    public function getOrderAndDirectionForSorting()
+    {
+        $result = null;
+        try {
+            $temp = explode('-', $this->sorting);
+            $orderBy = $temp[0];
+            $orderDirection = $temp[1];
+            if (in_array($orderBy, ['oldest', 'latest'])) {
+                $result = [
+                    'orderBy' => 'created_at',
+                    'direction' => $orderBy === 'latest' ? 'desc' : 'asc'
+                ];
+            } elseif (in_array($orderBy, ['reviews', 'reviews']) && in_array($orderDirection, ['asc', 'desc'])) {
+                $result = [
+                    'orderBy' => 'reviews_avg',
+                    'direction' => $orderDirection
+                ];
+            } elseif (in_array($orderBy, ['price']) && in_array($orderDirection, ['asc', 'desc'])) {
+                $result = [
+                    'orderBy' => $orderBy,
+                    'direction' => $orderDirection
+                ];
+            }
+        } catch (Exception $e){}
+
+        return $result;
     }
 
     public function render()
     {
+        $sortingResult = $this->getOrderAndDirectionForSorting();
         $this->products = Product::customQuery()
             ->when(($this->search && $this->search !== ''), function ($query) {
                 $query->where('name', 'LIKE', '%'.$this->search.'%');
@@ -259,13 +297,14 @@ class Products extends Component
                     $subQuery->whereIn('product_colors.value', explode(',', $this->colors));
                 });
             })
+            ->when(($sortingResult), function ($query) use ($sortingResult) {
+                $query->orderBy($sortingResult['orderBy'], $sortingResult['direction']);
+            })
             ->paginate(15);
 
         return view('livewire.features.products.pages.products', [
                 'breadcrumbsData' => $this->breadcrumbsData,
                 'childrenCategories' => $this->childrenCategories1,
-                'popularBrands' => $this->popularBrands,
-                'topRatedProducts' => $this->topRatedProducts,
                 'products' => $this->products,
                 'from' => $this->products->firstItem(),
                 'to' => $this->products->lastItem(),

@@ -1,13 +1,13 @@
 @switch($type)
     @case('deal')
-        <div wire:key="rand().'product-deal-wrapper'.rand()" class="tp-product-offer-item tp-product-item transition-3 swiper-slide {{$customClass}}">
+        <div class="tp-product-offer-item tp-product-item transition-3 swiper-slide {{$customClass}}">
             <div class="tp-product-thumb p-relative fix m-img">
                 <a href="{{$product->details_page_link}}">
                     <img src={{asset("assets/img/product/offer/product-offer-1.jpg")}} alt="product-electronic">
                 </a>
 
                 <!-- product action -->
-                <livewire:shared.components.product-actions wire:key="'product-actions-'.rand()" :product="$product" />
+                <livewire:shared.components.product-actions :product="$product" />
 
                 {{--                                        <div class="tp-product-add-cart-btn-large-wrapper">--}}
                 {{--                                            <button type="button" class="tp-product-add-cart-btn-large">--}}
@@ -36,7 +36,6 @@
                     </a>
                 </h3>
                 <livewire:shared.components.product-rating
-                    wire:key="'product-rating-'.$product->id.rand()"
                     :rating="$product->reviews_avg"
                     :ratersCount="$product->reviews_count"
                 />
@@ -60,7 +59,7 @@
         </div>
     @break
     @case('sm')
-        <div wire:key="'product-sm-'.rand()" class="tp-product-sm-item d-flex align-items-center">
+        <div class="tp-product-sm-item d-flex align-items-center">
             <div class="tp-product-thumb mr-25 fix">
                 <a href="{{$product->details_page_link}}">
                     <img src={{asset("assets/img/product/sm/product-sm-1.jpg")}} alt="">
@@ -77,7 +76,6 @@
                 </h3>
 
                 <livewire:shared.components.product-rating
-                    wire:key="'product-rating-'.$product->id.rand()"
                     :rating="$product->reviews_avg"
                     :ratersCount="$product->reviews_count"/>
                 <div class="tp-product-price-wrapper">
@@ -90,7 +88,7 @@
         </div>
     @break
     @case('listing')
-        <div wire:key="'product-listing-'.rand()" class="tp-product-item-2 mb-40">
+        <div class="tp-product-item-2 mb-40">
             <div class="tp-product-thumb-2 p-relative z-index-1 fix w-img">
                 <a href="{{$product->details_page_link}}">
                     <img src={{asset("assets/img/product/2/prodcut-1.jpg")}} alt="">
@@ -127,7 +125,7 @@
         </div>
     @break
     @default
-        <div wire:key="'product-simple-'.rand()" class="tp-product-item p-relative transition-3 mb-25 {{$customClass}}">
+        <div class="tp-product-item p-relative transition-3 mb-25 {{$customClass}}">
             <div class="tp-product-thumb p-relative fix m-img">
                 <a href="{{$product->details_page_link}}">
                     <img src={{asset("assets/img/product/product-1.jpg")}} alt="product-electronic">
@@ -138,7 +136,7 @@
                     :key="'product-badge-'.$product->id.rand()" />
 
                 <!-- product action -->
-                <livewire:shared.components.product-actions wire:key="'product-actions-'.$product->id.rand()" :product="$product" />
+                <livewire:shared.components.product-actions :product="$product" />
             </div>
             <!-- product content -->
             <div class="tp-product-content">
@@ -151,7 +149,6 @@
                     </a>
                 </h3>
                 <livewire:shared.components.product-rating
-                    wire:key="'product-rating-'.rand().$product->id"
                     :rating="$product->reviews_avg"
                     :ratersCount="$product->reviews_count"/>
                 <div class="tp-product-price-wrapper">

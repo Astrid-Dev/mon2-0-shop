@@ -1,5 +1,5 @@
 <div>
-    <livewire:shared.components.breadcrumbs wire:key="'breadcrumbs-'.rand()" :data="$breadcrumbsData" />
+    <livewire:shared.components.breadcrumbs :data="$breadcrumbsData" />
 
     <section class="tp-shop-area pb-120">
         <div class="container">
@@ -50,7 +50,7 @@
                                         @foreach(\App\Enums\StockType::getValues() as $statusValue)
                                             <?php $statusEnum = \App\Enums\StockType::fromValue($statusValue) ?>
 
-                                            <li wire:key="'stock_type-'.rand()" class="filter-item checkbox"
+                                            <li class="filter-item checkbox"
                                                 x-data="{isActive: @js(in_array($statusValue, explode(',', $status)))}"
                                             >
                                                 <input wire:change="handleStatus('{{ $statusEnum->value }}')"
@@ -85,7 +85,7 @@
                                         @foreach(\App\Enums\SiblingType::getValues() as $siblingValue)
                                             <?php $siblingEnum = \App\Enums\SiblingType::fromValue($siblingValue) ?>
 
-                                            <li wire:key="'sibling-'.rand()" class="filter-item checkbox"
+                                            <li class="filter-item checkbox"
                                                 x-data="{isActive: @js(in_array($siblingValue, explode(',', $siblings)))}"
                                             >
                                                 <input wire:change="handleSiblings('{{ $siblingEnum->value }}')"
@@ -110,7 +110,7 @@
                                             <li x-data="{isActive: @js($this->isConcernedByCategoryFilter($category->id, $category->parent_id))}"
                                                 :class="isActive ? 'active' : ''"
 {{--                                                class="{{$this->isConcernedByCategoryFilter($category->id, $category->parent_id) ? 'active' : ''}}"--}}
-                                                wire:key="'category-'.rand().$category->id">
+                                                >
                                                 <a wire:click="handleCategories({{$category->id}}, {{$category->parent_id}})"
                                                    @click="isActive = !isActive"
                                                 >
@@ -141,7 +141,7 @@
 {{--                                                </a>--}}
 {{--                                            </li>--}}
 
-                                            <li wire:key="'color-item-'.rand()"
+                                            <li
                                                 x-data="{isActive: @js(in_array($colorValue, explode(',', $colors)))}"
                                                 :class="isActive ? 'active' : ''"
                                             >
@@ -166,7 +166,7 @@
                             <div class="tp-shop-widget-content">
                                 <div class="tp-shop-widget-product">
                                     @foreach($topRatedProducts as $product)
-                                        <div wire:key="'top-rated-product-'.$product->id.rand()" class="tp-shop-widget-product-item d-flex align-items-center">
+                                        <div class="tp-shop-widget-product-item d-flex align-items-center">
                                             <div class="tp-shop-widget-product-thumb">
                                                 <a href="{{$product->details_page_link}}">
                                                     <img src={{asset("assets/img/product/shop/sm/shop-sm-1.jpg")}} alt="">
@@ -197,7 +197,7 @@
                             <div class="tp-shop-widget-content">
                                 <div class="tp-shop-widget-brand-list tp-shop-widget-categories d-flex align-items-center justify-content-between flex-wrap">
                                     @foreach($popularBrands as $brand)
-                                        <div wire:key="'brand-'.$brand->id.rand()"
+                                        <div
                                              wire:click="handleBrands({{$brand->id}})"
                                              x-data="{isActive: @js(in_array($brand->id, explode(',', $brands)))}"
                                              @click="isActive = !isActive"
@@ -229,21 +229,29 @@
                                 <div class="col-xl-6">
                                     <div class="tp-shop-top-right d-sm-flex align-items-center justify-content-xl-end">
                                         <div class="tp-shop-top-select">
-                                            <select x-data="{value: @js($sorting)}"
-                                                    onchange="console.log('okoko')"
-                                                    wire:model="sorting" @click="console.log(this)"
-                                                    wire:change="handleSorting('amount-asc')">
-                                                @foreach($sortingValues as $sortingValue)
-                                                    <option x-on:click="console.log('sa')" wire:key="'sorting-item-'.$sortingValue.rand()" value="{{$sortingValue}}">
-                                                        {{ __('products.sorts.'.str_replace('-desc', '', str_replace('-asc', '', $sortingValue))) }}
-                                                        @if(str_ends_with($sortingValue, '-asc'))
-                                                            (asc &#8593;)
-                                                        @elseif(str_ends_with($sortingValue, '-desc'))
-                                                            (desc &#8595;)
-                                                        @endif
-                                                    </option>
-                                                @endforeach
-                                            </select>
+                                            <div class="nice-select" tabindex="0">
+                                                <span class="current">
+                                                    {{ __('products.sorts.'.str_replace('-desc', '', str_replace('-asc', '', $sorting))) }}
+                                                    @if(str_ends_with($sorting, '-asc'))
+                                                        (asc &#8593;)
+                                                    @elseif(str_ends_with($sorting, '-desc'))
+                                                        (desc &#8595;)
+                                                    @endif
+                                                </span>
+                                                <ul class="list">
+                                                    @foreach($sortingValues as $sortingValue)
+                                                        <li wire:click="$set('sorting', '{{$sortingValue}}')"
+                                                            data-value="{{$sortingValue}}" class="option">
+                                                            {{ __('products.sorts.'.str_replace('-desc', '', str_replace('-asc', '', $sortingValue))) }}
+                                                            @if(str_ends_with($sortingValue, '-asc'))
+                                                                (asc &#8593;)
+                                                            @elseif(str_ends_with($sortingValue, '-desc'))
+                                                                (desc &#8595;)
+                                                            @endif
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -280,9 +288,9 @@
     </section>
 
     <!-- subscribe area start -->
-    <livewire:shared.components.newsletter-subscription wire:key="'newsletter-'.rand()" />
+    <livewire:shared.components.newsletter-subscription />
     <!-- subscribe area end -->
 
-    <livewire:shared.components.product-quick-view wire:key="'product-quick-view-'.rand()" />
+    <livewire:shared.components.product-quick-view />
 
 </div>

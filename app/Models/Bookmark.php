@@ -22,7 +22,7 @@ class Bookmark extends Model
     protected function extras(): Attribute
     {
         return new Attribute(
-            get: fn (string $value) => json_decode($value),
+            get: fn ($value) => $value ? json_decode($value) : $value,
             set: fn ($value) => json_encode($value),
         );
     }

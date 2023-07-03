@@ -11,5 +11,8 @@ return [
     'dashboard' => 'dashboard',
     'profile' => 'profil',
     'information' => 'informations',
-    'add_product' => 'ajouter-un-produit'
+    'add_product' => 'ajouter-un-produit',
+    'change_password' => 'changer-le-mot-passe',
+    'my_products' => 'mes-produits',
+    'custom_products' => 'produits-personnalises',
 ];

@@ -5,7 +5,7 @@
         </span>
         <ul>
             @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                <li wire:key="'locale-'.$localeCode.rand()">
+                <li>
                     <a class="{{$localeCode === LaravelLocalization::getCurrentLocale() ? 'text-primary' : ''}}" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
                         {{ ucfirst($properties['native']) }}
                     </a>

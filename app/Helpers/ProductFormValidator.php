@@ -47,7 +47,7 @@ class ProductFormValidator
     {
         return [
             'images' => ['sometimes', 'array'],
-            'images.*' => ['required', 'image', 'max:1024'], // 1MB Max
+            'images.*' => ['required', 'image', 'max:3000'], // 1MB Max
         ];
     }
 

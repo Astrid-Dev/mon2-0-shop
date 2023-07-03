@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Testing\Fluent\Concerns\Has;
 
 class Provider extends Model
 {
@@ -59,6 +60,11 @@ class Provider extends Model
     public function reviews(): HasManyThrough
     {
         return $this->hasManyThrough(ProductReview::class, Product::class);
+    }
+
+    public function orders(): HasManyThrough
+    {
+        return $this->hasManyThrough(OrderRequest::class, Product::class);
     }
 
     public static function customQuery(): Builder

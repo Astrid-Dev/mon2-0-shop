@@ -2,8 +2,14 @@
 
 namespace App\Http\Livewire\Features\Dashboard\Components;
 
+use App\Enums\ImageType;
 use App\Helpers\ProductFormValidator;
+use App\Helpers\SavingError;
+use App\Models\Product;
+use Debugbar;
+use Exception;
 use Livewire\Component;
+use Livewire\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 
 class ProductImages extends Component
@@ -14,9 +20,51 @@ class ProductImages extends Component
     public $mainImageIndex = 0;
     public $cleanStatus = [];
 
+    protected $listeners = [
+        'onSaveImages'
+    ];
+
     public function rules()
     {
         return ProductFormValidator::getImagesRules();
+    }
+
+    public function onSaveImages(Product $product)
+    {
+        try {
+            $this->validate();
+            Debugbar::log($this->images);
+            $this->mainImageIndex = (!empty($this->images) && $this->images[$this->mainImageIndex]) ? $this->mainImageIndex : 0;
+
+            $imagesToSave = [];
+
+            if (!empty($product)) {
+                foreach ($this->images as $i => $image) {
+                    if ($image) {
+                        $filename = $product->code . '-' . Functions::generateUniqueKey() . '.' . $image->getClientOriginalExtension();
+                        $image->storeAs('public/products', $filename);
+                        $path = 'products/' . $filename;
+                        $imagesToSave[] = [
+                            'image_type' => ImageType::ILLUSTRATION,
+                            'name' => $image->getClientOriginalName(),
+                            'path' => $path,
+                            'extras' => [
+                                "is_main" => $i === $this->mainImageIndex
+                            ]
+                        ];
+                    }
+                }
+
+                $product->images()->createMany($imagesToSave);
+
+                $this->emitUp('onSavingImagesSuccess');
+            } else {
+                throw new SavingError(__('No product was found to save images'));
+            }
+        } catch (Exception $e) {
+            Debugbar::log($e);
+            $this->emitUp('onSavingImagesFinished', false, __('dashboard.add_product.images.on_processing_error'));
+        }
     }
 
     public function addImage()
@@ -24,7 +72,6 @@ class ProductImages extends Component
         if (sizeof($this->images) < 5) {
             $this->images[] = null;
             $this->cleanStatus[] = false;
-            $this->emitImages();
         }
     }
 
@@ -35,7 +82,6 @@ class ProductImages extends Component
         if ($this->mainImageIndex === $index) {
             $this->mainImageIndex = 0;
         }
-        $this->emitImages();
     }
 
     public function updated($propertyName)
@@ -46,31 +92,12 @@ class ProductImages extends Component
             $this->cleanStatus[$index] = false;
         }
 
-//        $this->emitImages();
-
         $this->validateOnly($propertyName);
 
         if ($isForImages) {
             $this->cleanStatus[$index] = true;
         }
 
-    }
-
-    public function updatedImages()
-    {
-        $this->emitImages();
-        \Debugbar::log($this->images);
-        \Debugbar::log('--------');
-    }
-
-    public function updatedMainImageIndex()
-    {
-        $this->emitImages();
-    }
-
-    public function emitImages()
-    {
-        $this->emitUp('onUpdateImages', $this->images, $this->mainImageIndex);
     }
 
     public function render()

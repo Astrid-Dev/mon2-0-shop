@@ -5,6 +5,7 @@ use App\Enums\Color;
 use App\Enums\DimensionType;
 use App\Enums\DimensionUnit;
 use App\Enums\ImageType;
+use App\Enums\JerseyType;
 use App\Enums\ProviderStatus;
 use App\Enums\SiblingType;
 use App\Enums\StockType;
@@ -96,6 +97,11 @@ return [
         ProviderStatus::APPROVED => 'Approuvé',
         ProviderStatus::PENDING => 'En attente',
         ProviderStatus::UNAPPROVED => 'Désapprouvé',
+    ],
+
+    JerseyType::class => [
+        JerseyType::SIMPLE => 'Maillot Simple',
+        JerseyType::TEAM => 'Maillot d\'Equipe',
     ]
 
 ];

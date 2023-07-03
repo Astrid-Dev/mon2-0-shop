@@ -1,4 +1,4 @@
-<div wire:key="rand()">
+<div>
     <div class="tp-product-rating d-flex align-items-center">
         <div class="tp-product-rating-icon">
             @for($i = 0; $i < floor($rating ?? 0); $i++)

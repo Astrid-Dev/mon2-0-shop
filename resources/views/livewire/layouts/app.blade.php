@@ -267,7 +267,7 @@
 <!-- cart mini area end -->
 
 <!-- header area start -->
-    <livewire:shared.components.header wire:key="'header-'.rand()" :type="$headerType ?? 2" />
+    <livewire:shared.components.header :type="$headerType ?? 2" />
 <!-- header area end -->
 
 
@@ -279,7 +279,7 @@
 
 
 <!-- footer area start -->
-    <livewire:shared.components.footer wire:key="'footer-'.rand()" />
+    <livewire:shared.components.footer />
 <!-- footer area end -->
 
 

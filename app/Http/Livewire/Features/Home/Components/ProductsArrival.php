@@ -13,8 +13,7 @@ class ProductsArrival extends Component
     {
         $this->newProducts = Product::customQuery()
             ->with('category')
-            ->whereDate('created_at', '>=', now()->subDays(7))
-            ->inRandomOrder()
+            ->latest()
             ->take(5)
             ->get();
     }

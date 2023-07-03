@@ -1,12 +1,12 @@
 <div>
-    <livewire:shared.components.breadcrumbs wire:key="'breadcrumbs-'.rand()" :data="$breadcrumbsData" />
+    <livewire:shared.components.breadcrumbs :data="$breadcrumbsData" />
 
     <section class="tp-banner-area pb-30">
         <div class="container">
             <div class="row">
                 @foreach($someAds as $i => $ad)
                     @if($i === 0)
-                        <div wire:key="'some-ad-'.$ad->id.rand()" class="col-xl-8 col-lg-7">
+                        <div class="col-xl-8 col-lg-7">
                             <div class="tp-banner-item tp-banner-height p-relative mb-30 z-index-1 fix">
                                 <div class="tp-banner-thumb include-bg transition-3" style="background: url({{asset(asset("assets/img/product/banner/product-banner-1.jpg"))}})"></div>
                                 <div class="tp-banner-content">
@@ -26,7 +26,7 @@
                             </div>
                         </div>
                     @else
-                        <div wire:key="'some-ad-'.$ad->id.rand()" class="col-xl-4 col-lg-5">
+                        <div class="col-xl-4 col-lg-5">
                             <div class="tp-banner-item tp-banner-item-sm tp-banner-height p-relative mb-30 z-index-1 fix">
                                 <div class="tp-banner-thumb include-bg transition-3" style="background: url({{asset("assets/img/product/banner/product-banner-2.jpg")}})"></div>
                                 <div class="tp-banner-content">
@@ -57,7 +57,7 @@
         <div class="container">
             <div class="row">
                 @foreach($categories as $category)
-                    <div class="col-lg-4 col-sm-6" wire:key="'category-'.rand().$category->id">
+                    <div class="col-lg-4 col-sm-6">
                         <div class="tp-category-main-box mb-25 p-relative fix" data-bg-color="#F3F5F7">
                             <div class="tp-category-main-thumb include-bg transition-3" style="background: url({{asset("assets/img/category/main/category-main-1.jpg")}})"></div>
                             <div class="tp-category-main-content">
@@ -104,9 +104,9 @@
     <!-- category area end -->
 
     <!-- subscribe area start -->
-    <livewire:shared.components.newsletter-subscription wire:key="'newsletter-'.rand()" />
+    <livewire:shared.components.newsletter-subscription />
     <!-- subscribe area end -->
 
-    <livewire:shared.components.product-quick-view wire:key="'product-quick-view-'.rand()" />
+    <livewire:shared.components.product-quick-view />
 
 </div>

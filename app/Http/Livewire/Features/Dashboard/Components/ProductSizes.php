@@ -3,6 +3,8 @@
 namespace App\Http\Livewire\Features\Dashboard\Components;
 
 use App\Helpers\ProductFormValidator;
+use App\Helpers\SavingError;
+use App\Models\Product;
 use Livewire\Component;
 
 class ProductSizes extends Component
@@ -10,9 +12,35 @@ class ProductSizes extends Component
 
     public $sizes = [];
 
+    protected $listeners = [
+        'saveSizes'
+    ];
+
     public function rules()
     {
         return ProductFormValidator::getSizesRules();
+    }
+
+    public function saveSizes(Product $product)
+    {
+        try {
+            $this->validate();
+            if (!empty($product)) {
+                $sizesToSave = array_map(
+                    fn($size, $item) => [
+                        'value' => $size,
+                        'stock' => ProductFormValidator::getStockToStore($item['stock'])
+                    ],
+                    array_keys($this->sizes), $this->sizes,
+                );
+                $product->sizes()->createMany($sizesToSave);
+                $this->emitUp('onSavingSizesFinished');
+            } else {
+                throw new SavingError(__('No product was found to save sizes'));
+            }
+        } catch (\Exception $e) {
+            $this->emitUp('onSavingSizesFinished', false, __('dashboard.add_product.sizes.on_processing_error'));
+        }
     }
 
     public function addSize()

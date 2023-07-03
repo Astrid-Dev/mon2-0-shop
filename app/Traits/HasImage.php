@@ -13,7 +13,7 @@ trait HasImage
 
     public function mainImage()
     {
-        return $this->images()->whereJsonContains('extras->is_main', true)->first();
+        return $this->images()->whereJsonContains('extras->is_main', true);
     }
 }
 

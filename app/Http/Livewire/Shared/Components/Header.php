@@ -10,12 +10,10 @@ class Header extends Component
 {
     public $categories = [];
     public $type;
-    public $bookmarksCount = 0;
     public $linkedProvider = null;
 
     public function mount()
     {
-        $this->bookmarksCount = auth()->user()?->bookmarks_count ?? 0;
         $this->linkedProvider = Provider::query()
             ->where('user_id', auth()->id())
             ->first();

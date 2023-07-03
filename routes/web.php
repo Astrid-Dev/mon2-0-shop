@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Livewire\Features\Dashboard\Pages\AddProduct;
+use \App\Http\Livewire\Features\Dashboard\Pages\Products as MyProducts;
+use App\Http\Livewire\Features\Dashboard\Pages\ChangePassword;
 use App\Http\Livewire\Features\Dashboard\Pages\Information;
 use App\Http\Livewire\Features\Dashboard\Pages\Profile;
 use App\Http\Livewire\Features\Home\Pages\Categories;
 use App\Http\Livewire\Features\Home\Pages\Home;
+use App\Http\Livewire\Features\Products\Pages\CustomProducts;
 use App\Http\Livewire\Features\Products\Pages\Products;
 use App\Http\Livewire\Features\Products\Pages\ProductsDetails;
 use App\Http\Livewire\Features\Provider\Pages\BecomeProvider;
@@ -73,15 +76,23 @@ Route::prefix(LaravelLocalization::setLocale())
                         ->name('dashboard.information');
                     Route::get(LaravelLocalization::transRoute('routes.add_product'), AddProduct::class)
                         ->name('dashboard.add_product');
+                    Route::get(LaravelLocalization::transRoute('routes.my_products'), MyProducts::class)
+                        ->name('dashboard.my_products');
+                    Route::get(LaravelLocalization::transRoute('routes.change_password'), ChangePassword::class)
+                        ->name('dashboard.change_password');
                 });
         });
 
-        Route::get(LaravelLocalization::transRoute('routes.home'), Home::class);
-        Route::get(LaravelLocalization::transRoute('routes.categories'), Categories::class);
+        Route::get(LaravelLocalization::transRoute('routes.home'), Home::class)
+            ->name('home');
+        Route::get(LaravelLocalization::transRoute('routes.categories'), Categories::class)
+            ->name('categories');
+        Route::get(LaravelLocalization::transRoute('routes.custom_products'), CustomProducts::class)
+            ->name('custom_products');
         Route::prefix(LaravelLocalization::transRoute('routes.products'))
             ->middleware('localize')
             ->group(function () {
-                Route::get('/', Products::class);
+                Route::get('/', Products::class)->name('products');
                 Route::get(LaravelLocalization::transRoute('routes.products-details'), ProductsDetails::class)
                     ->name('products.details');
             });

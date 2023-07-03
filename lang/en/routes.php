@@ -12,4 +12,7 @@ return [
     'profile' => 'profile',
     'information' => 'information',
     'add_product' => 'add-a-product',
+    'change_password' => 'change-password',
+    'my_products' => 'my-products',
+    'custom_products' => 'custom-products',
 ];

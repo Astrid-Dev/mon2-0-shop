@@ -3,14 +3,14 @@
         <ul>
             @if ( ! $paginator->onFirstPage())
                 {{-- First Page Link --}}
-                <li :key="'pagination-item-'.rand()">
+                <li>
                     <a wire:click="gotoPage(1)" class="tp-pagination-prev prev page-numbers">
                         <i class="fa-solid fa-chevrons-left"></i>
                     </a>
                 </li>
                 @if($paginator->currentPage() > 2)
                     {{-- Previous Page Link --}}
-                    <li :key="'pagination-item-'.rand()">
+                    <li>
                         <a wire:click="gotoPage(1)" class="tp-pagination-prev prev page-numbers">
                             <i class="fa-solid fa-chevron-left"></i>
                         </a>
@@ -25,7 +25,7 @@
                     @foreach ($element as $page => $url)
                         <!--  Use three dots when current page is greater than 3.  -->
                         @if ($paginator->currentPage() > 3 && $page === 2)
-                            <li class="disabled" style="cursor: not-allowed" wire:key="'pagination-item-'.rand()">
+                            <li class="disabled" style="cursor: not-allowed">
                                 <a>
                                     <i class="fa-solid fa-ellipsis"></i>
                                 </a>
@@ -34,11 +34,11 @@
 
                         <!--  Show active page two pages before and after it.  -->
                         @if ($page == $paginator->currentPage())
-                            <li wire:key="'pagination-item-'.rand()">
+                            <li>
                                 <span class="current">{{$page}}</span>
                             </li>
                         @elseif ($page === $paginator->currentPage() + 1 || $page === $paginator->currentPage() + 2 || $page === $paginator->currentPage() - 1 || $page === $paginator->currentPage() - 2)
-                            <li wire:key="'pagination-item-'.rand()">
+                            <li>
                                 <a wire:click="gotoPage({{$page}})">
                                     {{ $page }}
                                 </a>
@@ -47,7 +47,7 @@
 
                         <!--  Use three dots when current page is away from end.  -->
                         @if ($paginator->currentPage() < $paginator->lastPage() - 2  && $page === $paginator->lastPage() - 1)
-                            <li wire:key="'pagination-item-'.rand()" class="disabled" style="cursor: not-allowed">
+                            <li class="disabled" style="cursor: not-allowed">
                                 <a>
                                     <i class="fa-solid fa-ellipsis"></i>
                                 </a>
@@ -60,13 +60,13 @@
             {{-- Next Page Link --}}
             @if ($paginator->hasMorePages())
                 @if($paginator->lastPage() - $paginator->currentPage() >= 2)
-                    <li wire:click="nextPage" wire:key="'pagination-item-'.rand()">
+                    <li wire:click="nextPage">
                         <a class="next page-numbers">
                             <i class="fa-solid fa-chevron-right"></i>
                         </a>
                     </li>
                 @endif
-                    <li wire:key="'pagination-item-'.rand()">
+                    <li>
                         <a wire:click="gotoPage({{ $paginator->lastPage() }})" class="next page-numbers">
                             <i class="fa-solid fa-chevrons-right"></i>
                         </a>

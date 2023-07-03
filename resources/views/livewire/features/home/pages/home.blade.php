@@ -1,6 +1,6 @@
 <div>
     <!-- slider area start -->
-    <livewire:features.home.components.ads-slider wire:key="'ads-slider-'.rand()" />
+    <livewire:features.home.components.ads-slider />
     <!-- slider area end -->
 
     <!-- product category area start -->
@@ -8,11 +8,11 @@
     <!-- product category area end -->
 
     <!-- feature area start -->
-    <livewire:features.home.components.features wire:key="'features-'.rand()" />
+    <livewire:features.home.components.features />
     <!-- feature area end -->
 
     <!-- product area start -->
-    <livewire:features.home.components.products wire:key="'products-'.rand()" />
+    <livewire:features.home.components.products />
     <!-- product area end -->
 
     <!-- banner area start -->
@@ -21,7 +21,7 @@
             <div class="row">
                 @foreach($someAds1 as $i => $ad)
                     @if($i === 0)
-                        <div wire:key="'some-ad-1-'.$ad->id.rand()" class="col-xl-8 col-lg-7">
+                        <div class="col-xl-8 col-lg-7">
                             <div class="tp-banner-item tp-banner-height p-relative mb-30 z-index-1 fix">
                                 <div class="tp-banner-thumb include-bg transition-3" data-background={{asset("assets/img/product/banner/product-banner-1.jpg")}}></div>
                                 <div class="tp-banner-content">
@@ -41,7 +41,7 @@
                             </div>
                         </div>
                     @else
-                        <div wire:key="'some-ad-1-'.$ad->id.rand()" class="col-xl-4 col-lg-5">
+                        <div class="col-xl-4 col-lg-5">
                             <div class="tp-banner-item tp-banner-item-sm tp-banner-height p-relative mb-30 z-index-1 fix">
                                 <div class="tp-banner-thumb include-bg transition-3" data-background={{asset("assets/img/product/banner/product-banner-2.jpg")}}></div>
                                 <div class="tp-banner-content">
@@ -68,10 +68,10 @@
     <!-- banner area end -->
 
     <!-- product offer area start -->
-    <livewire:features.home.components.products-offers wire:key="'product-offers-'.rand()" />
+    <livewire:features.home.components.products-offers />
     <!-- product deal area end -->
 
-    <livewire:features.home.components.products-categories wire:key="'product-categories-'.rand()" />
+    <livewire:features.home.components.products-categories />
 
     <!-- product banner area start -->
     <div class="tp-product-banner-area pb-90">
@@ -80,7 +80,7 @@
                 <div class="tp-product-banner-slider-active swiper-container">
                     <div class="swiper-wrapper">
                         @foreach($someAds2 as $i => $ad)
-                            <div wire:key="'some-ad-2-'.$ad->id.rand()" class="tp-product-banner-inner theme-bg p-relative z-index-1 fix swiper-slide">
+                            <div class="tp-product-banner-inner theme-bg p-relative z-index-1 fix swiper-slide">
                                 <h4 class="tp-product-banner-bg-text">{{$ad->category->parent?->label ?? $ad->category->label}}</h4>
                                 <div class="row align-items-center">
                                     <div class="col-xl-6 col-lg-6">
@@ -121,16 +121,16 @@
     <!-- product banner area end -->
 
     <!-- product arrival area start -->
-    <livewire:features.home.components.products-arrival wire:key="'products-arrival-'.rand()" />
+    <livewire:features.home.components.products-arrival />
     <!-- product arrival area end -->
 
     <!-- product sm area start -->
-    <livewire:features.home.components.products-sm wire:key="'products-sm-'.rand()" />
+    <livewire:features.home.components.products-sm />
 
     <!-- subscribe area start -->
-    <livewire:shared.components.newsletter-subscription wire:key="'newsletter-'.rand()" />
+    <livewire:shared.components.newsletter-subscription />
     <!-- subscribe area end -->
 
-    <livewire:shared.components.product-quick-view wire:key="'product-quick-view-'.rand()" />
+    <livewire:shared.components.product-quick-view />
 
 </div>

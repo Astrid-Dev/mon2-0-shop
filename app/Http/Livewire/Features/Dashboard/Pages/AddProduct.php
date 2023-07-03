@@ -20,44 +20,27 @@ class AddProduct extends Component
     public $provider;
     public $canCreateProduct = false;
 
+    public Product|null $product = null;
+
     public $isProcessing = false;
 
-    public $name;
-    public $price;
-    public $brandId = null;
-    public $categoryId = null;
-    public $tags = [];
-    public $details = [];
-    public $description;
-    public $stockType = null;
-
-    public $colors = [];
-
-    public $dimensions = [];
-
-    public $images = [];
-    public $mainImageIndex = 0;
-
-    public $promotion = null;
-
-    public $siblings = [];
-
-    public $sizes = [];
+    public $hasSavedBasicInformation = false;
+    public $hasSavedColors = false;
+    public $hasSavedDimensions = false;
+    public $hasSavedImages = false;
+    public $hasSavedPromotion = false;
+    public $hasSavedSiblings = false;
+    public $hasSavedSizes = false;
 
     protected $listeners = [
-        'onUpdateBasicInformation',
-        'onUpdateColors',
-        'onUpdateDimensions',
-        'onUpdateImages',
-        'onUpdatePromotion',
-        'onUpdateSiblings',
-        'onUpdateSizes',
+        'onSavingBasicInformationFinished',
+        'onSavingColorsFinished',
+        'onSavingDimensionsFinished',
+        'onSavingImagesFinished',
+        'onSavingPromotionFinished',
+        'onSavingSiblingsFinished',
+        'onSavingSizesFinished',
     ];
-
-    public function rules()
-    {
-        return ProductFormValidator::getRules();
-    }
 
     public function mount()
     {
@@ -69,154 +52,154 @@ class AddProduct extends Component
 
     public function submit()
     {
-        try {
-            $this->validate();
-            $this->isProcessing = true;
-            $this->render();
+        $this->isProcessing = true;
+        $this->render();
+        $this->saveBasicInformation();
+    }
 
-            $product = $this->provider->products()
-                ->create([
-                    'code' => Functions::generateUniqueKey('M20S-PDT-'),
-                    'name' => $this->name,
-                    'price' => $this->price,
-                    'category_id' => $this->categoryId,
-                    'brand_id' => $this->brandId,
-                    'details' => $this->details,
-                    'description' => $this->description,
-                    'stock_type' => $this->stockType,
-                    'tags' => $this->tags
-                ]);
-
-            $checkedColors = array_filter($this->colors, fn ($item) => $item['checked']);
-            $colorsToSave = array_map(
-                fn ($color, $item) => [
-                    'value' => $color,
-                    'stock' => ProductFormValidator::getStockToStore($item['stock']),
-                ],
-                array_keys($checkedColors), $checkedColors);
-
-            if (sizeof($colorsToSave) > 0) {
-                $product->colors()->createMany($colorsToSave);
-            }
-
-            if (sizeof($this->dimensions) > 0) {
-                $dimensionsToSave = array_map(
-                    fn ($dimension) => array_merge(
-                        $dimension,
-                        ['stock' => ProductFormValidator::getStockToStore($dimension['stock'])]
-                    ),
-                    $this->dimensions
-                );
-                $product->dimensions()->createMany($dimensionsToSave);
-            }
-
-            \Debugbar::log($this->images);
-            $this->mainImageIndex = (!empty($this->images) && $this->images[$this->mainImageIndex]) ? $this->mainImageIndex : 0;
-
-            $imagesToSave = [];
-
-            foreach ($this->images as $i => $image) {
-                if ($image) {
-                    $filename = $product->code.'-'.Functions::generateUniqueKey().'.'.$image->getClientOriginalExtension();
-                    $image->storeAs('public/products', $filename);
-                    $path = 'products/'.$filename;
-                    $imagesToSave[] = [
-                        'image_type' => ImageType::ILLUSTRATION,
-                        'name' => $image->getClientOriginalName(),
-                        'path' => $path,
-                        'extras' => [
-                            "is_main" => $i === $this->mainImageIndex
-                        ]
-                    ];
-                }
-            }
-
-            if (!empty($imagesToSave)) {
-                $product->images()->createMany($imagesToSave);
-            }
-
-            if ($this->promotion) {
-                $product->promotion()->create($this->promotion);
-            }
-
-            $checkedSiblings = array_filter($this->siblings, fn($item) => $item['checked']);
-            $siblingsToSave = array_map(
-                fn($sibling, $item) => [
-                    'sibling' => $sibling,
-                    'stock' => ProductFormValidator::getStockToStore($item['stock'])
-                ],
-                array_keys($checkedSiblings), $checkedSiblings
-            );
-            $product->siblings()->createMany($siblingsToSave);
-
-            $sizesToSave = array_map(
-                fn($size, $item) => [
-                    'value' => $size,
-                    'stock' => ProductFormValidator::getStockToStore($item['stock'])
-                ],
-                array_keys($this->sizes), $this->sizes,
-            );
-            $product->sizes()->createMany($sizesToSave);
-
-            $this->isProcessing = false;
-            $this->render();
-            $this->showSuccessToast('Product was successfully created');
-
-        } catch (\Exception $e) {
-            \Debugbar::log($e);
-            $this->showErrorToast($e->getMessage());
+    public function saveBasicInformation()
+    {
+        if (!$this->hasSavedBasicInformation) {
+            $this->emitTo('features.dashboard.components.product-basic-information', 'saveBasicInformation');
+        } else {
+            $this->saveColors();
+        }
+    }
+    public function onSavingBasicInformationFinished($product, $hasSucceed =  true, $message = null)
+    {
+        \Debugbar::log('onSavingBasicInformationFinished');
+        \Debugbar::log($product);
+        \Debugbar::log($hasSucceed);
+        \Debugbar::log($message);
+        $this->hasSavedBasicInformation = $hasSucceed;
+        if (!$hasSucceed || !$product) {
+            $this->onProcessingError($message);
+        } else {
+            $this->product = new Product($product);
+            $this->saveColors();
         }
     }
 
-    public function onUpdateBasicInformation($field, $value)
+    public function saveColors()
     {
-        if ($this->hasProperty($field)) {
-            $this->fill([$field => $value]);
-            \Debugbar::log($this->getPropertyValue($field));
-            \Debugbar::log($this->details);
+        if (!$this->hasSavedColors) {
+            $this->emitTo('features.dashboard.components.product-colors', 'saveColors');
+        } else {
+            $this->saveDimensions();
+        }
+    }
+    public function onSavingColorsFinished($hasSucceed = true, $message = null)
+    {
+        $this->hasSavedColors = $hasSucceed;
+        if (!$hasSucceed) {
+            $this->onProcessingError($message);
+        } else {
+            $this->saveDimensions();
         }
     }
 
-    public function onUpdateColors($colors)
+    public function saveDimensions()
     {
-        $this->colors = $colors;
-    }
-
-    public function onUpdateDimensions($dimensions)
-    {
-        $this->dimensions = $dimensions;
-    }
-
-    /**
-     * @param TemporaryUploadedFile[] $images
-     * @param $mainImageIndex
-     * @return void
-     */
-    public function onUpdateImages(array $images, $mainImageIndex): void
-    {
-        $this->images = $images;
-
-        foreach ($images as $image) {
-//            \Debugbar::log($image->());
+        if (!$this->hasSavedDimensions) {
+            $this->emitTo('features.dashboard.components.product-dimensions', 'saveDimensions');
+        } else {
+            $this->saveImages();
         }
-        $this->mainImageIndex = $mainImageIndex;
-        \Debugbar::log($this->images);
+    }
+    public function onSavingDimensionsFinished($hasSucceed = true, $message = null)
+    {
+        $this->hasSavedDimensions = $hasSucceed;
+        if (!$hasSucceed) {
+            $this->onProcessingError($message);
+        } else {
+            $this->saveImages();
+        }
     }
 
-    public function onUpdatePromotion($promotion)
+    public function saveImages()
     {
-        $this->promotion = $promotion;
+        if (!$this->hasSavedImages) {
+            $this->emitTo('features.dashboard.components.product-images', 'saveImages');
+        } else {
+            $this->savePromotion();
+        }
+    }
+    public function onSavingImagesFinished($hasSucceed = true, $message = null)
+    {
+        $this->hasSavedImages = $hasSucceed;
+        if (!$hasSucceed) {
+            $this->onProcessingError($message);
+        } else {
+            $this->savePromotion();
+        }
     }
 
-    public function onUpdateSiblings($siblings)
+    public function savePromotion()
     {
-        $this->siblings = $siblings;
+        if (!$this->hasSavedPromotion) {
+            $this->emitTo('features.dashboard.components.product-promotion', 'savePromotion');
+        } else {
+            $this->saveSiblings();
+        }
+    }
+    public function onSavingPromotionFinished($hasSucceed = true, $message = null)
+    {
+        $this->hasSavedPromotion = $hasSucceed;
+        if (!$hasSucceed) {
+            $this->onProcessingError($message);
+        } else {
+            $this->saveSiblings();
+        }
     }
 
-    public function onUpdateSizes($sizes)
+    public function saveSiblings()
     {
-        $this->sizes = $sizes;
-        \Debugbar::log($this->sizes);
+        if (!$this->hasSavedSiblings) {
+            $this->emitTo('features.dashboard.components.product-siblings', 'saveSiblings');
+        } else {
+            $this->saveSizes();
+        }
+    }
+    public function onSavingSiblingsFinished($hasSucceed = true, $message = null)
+    {
+        $this->hasSavedSiblings = $hasSucceed;
+        if (!$hasSucceed) {
+            $this->onProcessingError($message);
+        } else {
+            $this->saveSizes();
+        }
+    }
+
+    public function saveSizes()
+    {
+        if (!$this->hasSavedSizes) {
+            $this->emitTo('features.dashboard.components.product-sizes', 'saveSizes');
+        } else {
+            $this->saveProduct();
+        }
+    }
+    public function onSavingSizesFinished($hasSucceed = true, $message = null)
+    {
+        $this->hasSavedSizes = $hasSucceed;
+        if (!$hasSucceed) {
+            $this->onProcessingError($message);
+        } else {
+            $this->saveProduct();
+        }
+    }
+
+    public function onProcessingSuccess()
+    {
+        $this->isProcessing = false;
+        $this->render();
+        $this->showSuccessToast(__('dashboard.add_product.on_processing_success'));
+    }
+
+    public function onProcessingError($message)
+    {
+        $this->showErrorToast($message);
+        $this->isProcessing = false;
+        $this->render();
     }
 
     public function render()

@@ -5,7 +5,7 @@ trait HasToast
 {
     public function showSuccessToast($message)
     {
-        $this->dispatchBrowserEvent('alert', [
+        $this->dispatchBrowserEvent('fireToast', [
             'type' => 'success',
             'message' => $message
         ]);
@@ -13,7 +13,7 @@ trait HasToast
 
     public function showErrorToast($message)
     {
-        $this->dispatchBrowserEvent('alert', [
+        $this->dispatchBrowserEvent('fireToast', [
             'type' => 'error',
             'message' => $message
         ]);
@@ -21,8 +21,16 @@ trait HasToast
 
     public function showInfoToast($message)
     {
-        $this->dispatchBrowserEvent('alert', [
+        $this->dispatchBrowserEvent('fireToast', [
             'type' => 'info',
+            'message' => $message
+        ]);
+    }
+
+    public function showWarningToast($message)
+    {
+        $this->dispatchBrowserEvent('fireToast', [
+            'type' => 'warning',
             'message' => $message
         ]);
     }

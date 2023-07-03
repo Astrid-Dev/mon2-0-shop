@@ -3,13 +3,17 @@
 namespace App\Http\Livewire\Features\Dashboard\Components;
 
 use App\Enums\StockType;
+use App\Helpers\Functions;
 use App\Helpers\ProductFormValidator;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Provider;
 use Livewire\Component;
 
 class ProductBasicInformation extends Component
 {
+    public Provider $provider;
+
     public $name;
     public $price;
     public $brandId = null;
@@ -25,13 +29,18 @@ class ProductBasicInformation extends Component
     public $selectedCategory = null;
     public $selectedBrand = null;
 
+    protected $listeners = [
+        'saveBasicInformation'
+    ];
+
     public function rules()
     {
         return ProductFormValidator::getBasicInformationRules();
     }
 
-    public function mount()
+    public function mount(Provider $provider)
     {
+        $this->provider = $provider;
         $this->tags[] = '';
         $this->details[] = '';
 
@@ -44,32 +53,51 @@ class ProductBasicInformation extends Component
             ->get();
     }
 
+    public function saveBasicInformation()
+    {
+        try {
+            $this->validate();
+            $product = $this->provider->products()
+                ->create([
+                    'code' => Functions::generateUniqueKey('M20S-PDT-'),
+                    'name' => $this->name,
+                    'price' => $this->price,
+                    'category_id' => $this->categoryId,
+                    'brand_id' => $this->brandId,
+                    'details' => $this->details,
+                    'description' => $this->description,
+                    'stock_type' => $this->stockType,
+                    'tags' => $this->tags
+                ]);
+            $this->emitUp('onSavingBasicInformationFinished', $product);
+        } catch (\Exception $e) {
+            \Debugbar::log($e);
+            $this->emitUp('onSavingBasicInformationFinished', null, false, $e->getMessage());
+        }
+    }
+
     public function addTag()
     {
         if (sizeof($this->tags) < 5) {
             $this->tags[] = '';
-            $this->emitTags();
         }
     }
 
     public function removeTag($index)
     {
         $this->tags = array_filter($this->tags, fn ($i) => $i !== $index, ARRAY_FILTER_USE_KEY);
-        $this->emitTags();
     }
 
     public function addDetail()
     {
         if (sizeof($this->details) < 5) {
             $this->details[] = '';
-            $this->emitDetails();
         }
     }
 
     public function removeDetail($index)
     {
         $this->details = array_filter($this->details, fn ($i) => $i !== $index, ARRAY_FILTER_USE_KEY);
-        $this->emitDetails();
     }
 
     public function selectCategory($parentIndex, $childIndex =  null)
@@ -80,38 +108,18 @@ class ProductBasicInformation extends Component
             $this->selectedCategory = $this->categories[$parentIndex];
         }
         $this->categoryId = $this->selectedCategory->id;
-        $this->emitUp('onUpdateBasicInformation', 'categoryId', $this->categoryId);
     }
 
     public function selectBrand($brandIndex)
     {
         $this->selectedBrand = $this->brands[$brandIndex];
         $this->brandId = $this->selectedBrand->id;
-        $this->emitUp('onUpdateBasicInformation', 'brandId', $this->brandId);
     }
 
     public function updated($propertyName)
     {
-        $this->emitUp('onUpdateBasicInformation', $propertyName, $this->getPropertyValue($propertyName));
         $this->validateOnly($propertyName);
     }
-
-    public function emitDetails()
-    {
-        $this->emitUp('onUpdateBasicInformation', 'details', $this->details);
-    }
-
-    public function emitTags()
-    {
-        $this->emitUp('onUpdateBasicInformation', 'tags', $this->tags);
-    }
-
-//    public function updatedTags()
-//    {
-//        $temp = $this->validateOnly('tags');
-//        \Debugbar::log($temp);
-//        \Debugbar::log($this->tags);
-//    }
 
     public function render()
     {

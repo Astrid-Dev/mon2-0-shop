@@ -2,13 +2,21 @@
 
 namespace App\Http\Livewire\Features\Dashboard\Components;
 
+use App\Enums\ImageType;
 use App\Enums\SiblingType;
+use App\Helpers\ProductFormValidator;
+use App\Helpers\SavingError;
+use App\Models\Product;
 use Livewire\Component;
 
 class ProductSiblings extends Component
 {
     public $siblingIcons = [];
     public $siblings = [];
+
+    protected $listeners = [
+        'saveSiblings'
+    ];
 
     public function mount()
     {
@@ -21,6 +29,30 @@ class ProductSiblings extends Component
                 'checked' => false,
                 'stock' => null,
             ];
+        }
+    }
+
+    public function saveSiblings(Product $product)
+    {
+        try {
+            if (!empty($product)) {
+                $checkedSiblings = array_filter($this->siblings, fn($item) => $item['checked']);
+                $siblingsToSave = array_map(
+                    fn($sibling, $item) => [
+                        'sibling' => $sibling,
+                        'stock' => ProductFormValidator::getStockToStore($item['stock'])
+                    ],
+                    array_keys($checkedSiblings), $checkedSiblings
+                );
+                $product->siblings()->createMany($siblingsToSave);
+
+                $this->emitUp('onSavingSiblingsSuccess');
+            } else {
+                throw new SavingError(__('No product was found to save siblings'));
+            }
+        } catch (\Exception $e) {
+            \Debugbar::log($e);
+            $this->emitUp('onSavingSiblingsFinished', false, __('dashboard.add_product.product_siblings.on_processing_error'));
         }
     }
 

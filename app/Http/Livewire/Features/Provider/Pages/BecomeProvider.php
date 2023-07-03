@@ -31,7 +31,7 @@ class BecomeProvider extends Component
         'city' => ['required', 'string', 'max:100'],
         'address' => ['required', 'string', 'max:150'],
         'description' => ['required', 'string', 'between:20,255'],
-        'logo' => ['sometimes', 'image', 'max:1024']
+        'logo' => ['sometimes', 'image', 'max:3000']
     ];
 
     public function submit()

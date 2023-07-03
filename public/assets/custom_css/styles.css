@@ -244,3 +244,33 @@ div.nice-select .current{
     height: 100px;
     overflow: auto;
 }
+
+.tp-login-input .div-as-input {
+    height: 56px;
+    background: #FFFFFF;
+    border: 1px solid #E0E2E3;
+    font-size: 14px;
+    color: var(--tp-common-black);
+}
+
+.provider-name-on-product-details:hover {
+    color: var(--tp-theme-primary);
+    cursor: pointer;
+}
+
+.provider-overview-details-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.provider-overview-details-label {
+    left: unset !important;
+    padding: 0 !important;
+}
+
+a.provider-overview-details-item:hover {
+    color: var(--tp-theme-primary);
+    cursor: pointer;
+}

@@ -28,7 +28,7 @@ class DashboardMenu extends Component
             [
                 'label' => 'dashboard.menu.products',
                 'icon' => 'fa-regular fa-shop',
-                'link' => LaravelLocalization::localizeUrl('products'),
+                'link' => LaravelLocalization::localizeUrl(route('dashboard.my_products')),
                 'key' => 'nav-products-tab',
                 'is_for_provider' => true,
             ],
@@ -48,7 +48,7 @@ class DashboardMenu extends Component
             [
                 'label' => 'dashboard.menu.change_password',
                 'icon' => 'fa-regular fa-lock',
-                'link' => LaravelLocalization::localizeUrl('change_password'),
+                'link' => LaravelLocalization::localizeUrl(route('dashboard.change_password')),
                 'key' => 'nav-password-tab'
             ],
         ];

@@ -41,7 +41,9 @@
                                                              aria-labelledby="basic-information-heading"
                                                              data-bs-parent="#product-form">
                                                             <div class="accordion-body">
-                                                                <livewire:features.dashboard.components.product-basic-information />
+                                                                <livewire:features.dashboard.components.product-basic-information
+                                                                    :provider="$provider"
+                                                                />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -59,7 +61,9 @@
                                                              aria-labelledby="images-heading"
                                                              data-bs-parent="#promotion-form">
                                                             <div class="accordion-body">
-                                                                <livewire:features.dashboard.components.product-promotion />
+                                                                <livewire:features.dashboard.components.product-promotion
+                                                                    :product="$product"
+                                                                />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -77,7 +81,9 @@
                                                              aria-labelledby="sibling-heading"
                                                              data-bs-parent="#product-form">
                                                             <div class="accordion-body">
-                                                                <livewire:features.dashboard.components.product-siblings />
+                                                                <livewire:features.dashboard.components.product-siblings
+                                                                    :product="$product"
+                                                                />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -95,7 +101,9 @@
                                                              aria-labelledby="colors-heading"
                                                              data-bs-parent="#product-form">
                                                             <div class="accordion-body">
-                                                                <livewire:features.dashboard.components.product-colors />
+                                                                <livewire:features.dashboard.components.product-colors
+                                                                    :product="$product"
+                                                                />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -113,7 +121,9 @@
                                                              aria-labelledby="sizes-heading"
                                                              data-bs-parent="#product-form">
                                                             <div class="accordion-body">
-                                                                <livewire:features.dashboard.components.product-sizes />
+                                                                <livewire:features.dashboard.components.product-sizes
+                                                                    :product="$product"
+                                                                />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -131,7 +141,9 @@
                                                              aria-labelledby="dimensions-heading"
                                                              data-bs-parent="#product-form">
                                                             <div class="accordion-body">
-                                                                <livewire:features.dashboard.components.product-dimensions />
+                                                                <livewire:features.dashboard.components.product-dimensions
+                                                                    :product="$product"
+                                                                />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -149,7 +161,9 @@
                                                              aria-labelledby="images-heading"
                                                              data-bs-parent="#product-form">
                                                             <div class="accordion-body">
-                                                                <livewire:features.dashboard.components.product-images />
+                                                                <livewire:features.dashboard.components.product-images
+                                                                    :product="$product"
+                                                                />
                                                             </div>
                                                         </div>
                                                     </div>

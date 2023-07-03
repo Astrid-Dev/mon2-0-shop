@@ -17,6 +17,10 @@ class ProductReview extends Model
       'comment'
     ];
 
+    protected $dates = [
+        'created_at'
+    ];
+
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);

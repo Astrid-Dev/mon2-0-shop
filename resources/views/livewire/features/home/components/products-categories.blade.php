@@ -13,7 +13,7 @@
                             <div class="tp-product-gadget-categories-list">
                                 <ul>
                                     @foreach($randomCategory->descendants as $subCategory)
-                                        <li wire:key="'category-descendant-'.$subCategory->id.rand()"><a href="{{ LaravelLocalization::localizeUrl('/products').('?categories='.$subCategory->id) }}">{{$subCategory->label}}</a></li>
+                                        <li><a href="{{ LaravelLocalization::localizeUrl('/products').('?categories='.$subCategory->id) }}">{{$subCategory->label}}</a></li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -31,7 +31,7 @@
                             <div class="tp-product-gadget-banner-slider-active swiper-container">
                                 <div class="swiper-wrapper">
                                     @foreach($someAds as $product)
-                                        <div wire:key="'some-ad-product-'.$product->id.rand()" class="tp-product-gadget-banner-item swiper-slide include-bg" data-background={{asset("assets/img/product/gadget/gadget-banner-1.jpg")}}>
+                                        <div class="tp-product-gadget-banner-item swiper-slide include-bg" data-background={{asset("assets/img/product/gadget/gadget-banner-1.jpg")}}>
                                             <div class="tp-product-gadget-banner-content">
                                                 <span class="tp-product-gadget-banner-price">{{ __('home.product_categories.only') }} {{$product->formatted_price->new}} XAF</span>
                                                 <h3 class="tp-product-gadget-banner-title">
@@ -50,7 +50,7 @@
                     <div class="tp-product-gadget-wrapper">
                         <div class="row">
                             @foreach($randomCategory->products as $product)
-                                <div wire:key="'product-item-wrapper-'.$product->id.rand()" class="col-xl-4 col-sm-6">
+                                <div class="col-xl-4 col-sm-6">
                                     <livewire:shared.components.product-item
                                         :product="$product"
                                         :key="'product-item-'.$product->id"

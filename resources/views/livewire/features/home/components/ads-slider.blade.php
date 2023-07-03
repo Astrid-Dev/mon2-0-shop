@@ -4,7 +4,7 @@
             <div class="swiper-wrapper">
                 @foreach($adProducts as $adProduct)
                     @if($adProduct->id % 2 === 1)
-                        <div wire:key="'ad-product-'.$adProduct->id.rand()" class="tp-slider-item tp-slider-height d-flex align-items-center swiper-slide green-dark-bg">
+                        <div class="tp-slider-item tp-slider-height d-flex align-items-center swiper-slide green-dark-bg">
                             <div class="tp-slider-shape">
                                 <img class="tp-slider-shape-1" src={{asset("assets/img/slider/shape/slider-shape-1.png")}} alt="slider-shape">
                                 <img class="tp-slider-shape-2" src={{asset("assets/img/slider/shape/slider-shape-2.png")}} alt="slider-shape">
@@ -45,7 +45,7 @@
                             </div>
                         </div>
                     @else
-                        <div wire:key="'ad-product-'.$product->id.rand()" class="tp-slider-item is-light tp-slider-height d-flex align-items-center swiper-slide" data-bg-color="#E3EDF6">
+                        <div class="tp-slider-item is-light tp-slider-height d-flex align-items-center swiper-slide" data-bg-color="#E3EDF6">
                             <div class="tp-slider-shape">
                                 <img class="tp-slider-shape-1" src={{asset("assets/img/slider/shape/slider-shape-1.png")}} alt="slider-shape">
                                 <img class="tp-slider-shape-2" src={{asset("assets/img/slider/shape/slider-shape-2.png")}} alt="slider-shape">

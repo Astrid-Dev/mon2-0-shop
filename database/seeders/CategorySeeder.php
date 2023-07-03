@@ -20,6 +20,7 @@ class CategorySeeder extends Seeder
                     'en' => 'Clothes'
                 ]),
                 'illustration' => null,
+                'icon' => ''
             ],
             [
                 'label' => json_encode([

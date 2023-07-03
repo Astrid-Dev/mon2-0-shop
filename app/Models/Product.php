@@ -38,7 +38,8 @@ class Product extends Model
 
     protected $with = [
         'promotion',
-//        'mainImage'
+        'currentUserBookmark',
+        'mainImage'
     ];
 
     protected $withCount = [
@@ -49,12 +50,18 @@ class Product extends Model
         'is_in_promotion',
         'new_price',
         'formatted_price',
-        'details_page_link'
+        'details_page_link',
+        'has_order_features'
     ];
 
     public function getIsInPromotionAttribute(): bool
     {
         return !!$this->promotion;
+    }
+
+    public function getHasOrderFeaturesAttribute(): bool
+    {
+        return in_array($this->category_id, [12, 13, 16, 18, 19, 21]);
     }
 
     public function getNewPriceAttribute(): float
@@ -142,6 +149,17 @@ class Product extends Model
     public function siblings(): HasMany
     {
         return $this->hasMany(ProductSibling::class);
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(OrderRequest::class);
+    }
+
+    public function currentUserReview()
+    {
+        return $this->reviews()
+            ->where('user_id', auth()->id());
     }
 
     public static function customQuery(): Builder
