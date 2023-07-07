@@ -51,7 +51,7 @@ class Product extends Model
         'new_price',
         'formatted_price',
         'details_page_link',
-        'has_order_features'
+        'main_image_path'
     ];
 
     public function getIsInPromotionAttribute(): bool
@@ -82,6 +82,11 @@ class Product extends Model
     public function getDetailsPageLinkAttribute()
     {
         return \LaravelLocalization::localizeUrl(route('products.details', ['productIdentifier' => (str_replace(' ', '-', $this->name).'_'.$this->id)]));
+    }
+
+    public function getMainImagePathAttribute()
+    {
+        return sizeof($this->mainImage) > 0 ? ('/storage/'.$this->mainImage[0]->path) : '/images/no-image.png';
     }
 
 //    public function getReviewsAvgAttribute(): float | null
@@ -166,5 +171,17 @@ class Product extends Model
     {
         return self::query()
             ->withAvg('reviews as reviews_avg', 'rating');
+    }
+
+    public function snapshots(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'product_stock_type_snapshots')
+            ->withTimestamps();
+    }
+
+    public function currentUserSnapshot(): HasOne
+    {
+        return $this->hasOne(ProductStockTypeSnapshot::class)
+            ->where('user_id', auth()->id());
     }
 }

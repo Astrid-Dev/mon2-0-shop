@@ -14,19 +14,21 @@ class ProductsCategories extends Component
     public function mount()
     {
         $this->randomCategory = Category::query()
-            ->with(['descendants', 'products' => function ($query) {
-                $query->with('category')
-//                    ->whereHas('category', function ($subQuery) {
-//                        $subQuery->whereColumn('products.category_id', '=', 'categories.parent_id')
-//                        ->orWhereColumn('products.category_id', '=', 'categories.id');
-//                    })
-                    ->inRandomOrder()
-                    ->take(6);
-            }])
+            ->with(['descendants'])
             ->whereNull('parent_id')
 //            ->whereHas('products')
             ->inRandomOrder()
             ->first();
+
+        $this->randomCategory->products = Product::query()
+            ->with('category')
+            ->whereHas('category', function ($query) {
+                $query->where('parent_id', $this->randomCategory->id)
+                ->orWhere('id', $this->randomCategory->id);
+            })
+            ->inRandomOrder()
+            ->take(6)
+            ->get();
 
         $this->someAds = Product::customQuery()
             ->whereHas('promotion')

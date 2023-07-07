@@ -1,10 +1,14 @@
 <?php
 
 use App\Http\Livewire\Features\Dashboard\Pages\AddProduct;
+use App\Http\Livewire\Features\Dashboard\Pages\MyOrders;
+use App\Http\Livewire\Features\Dashboard\Pages\MyQuestions;
+use App\Http\Livewire\Features\Dashboard\Pages\Orders;
 use \App\Http\Livewire\Features\Dashboard\Pages\Products as MyProducts;
 use App\Http\Livewire\Features\Dashboard\Pages\ChangePassword;
 use App\Http\Livewire\Features\Dashboard\Pages\Information;
 use App\Http\Livewire\Features\Dashboard\Pages\Profile;
+use App\Http\Livewire\Features\Dashboard\Pages\Questions;
 use App\Http\Livewire\Features\Home\Pages\Categories;
 use App\Http\Livewire\Features\Home\Pages\Home;
 use App\Http\Livewire\Features\Products\Pages\CustomProducts;
@@ -78,6 +82,14 @@ Route::prefix(LaravelLocalization::setLocale())
                         ->name('dashboard.add_product');
                     Route::get(LaravelLocalization::transRoute('routes.my_products'), MyProducts::class)
                         ->name('dashboard.my_products');
+                    Route::get(LaravelLocalization::transRoute('routes.orders'), Orders::class)
+                        ->name('dashboard.orders');
+                    Route::get(LaravelLocalization::transRoute('routes.my_orders'), MyOrders::class)
+                        ->name('dashboard.my_orders');
+                    Route::get(LaravelLocalization::transRoute('routes.questions'), Questions::class)
+                        ->name('dashboard.questions');
+                    Route::get(LaravelLocalization::transRoute('routes.my_questions'), MyQuestions::class)
+                        ->name('dashboard.my_questions');
                     Route::get(LaravelLocalization::transRoute('routes.change_password'), ChangePassword::class)
                         ->name('dashboard.change_password');
                 });

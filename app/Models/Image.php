@@ -25,6 +25,15 @@ class Image extends Model
         'image_type' => ImageType::class
     ];
 
+    protected $appends = [
+        'url'
+    ];
+
+    public function getUrlAttribute(): string
+    {
+        return asset('/storage/' . $this->path);
+    }
+
     protected function extras(): Attribute
     {
         return new Attribute(

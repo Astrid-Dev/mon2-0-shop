@@ -38,7 +38,8 @@
                                     </div>
                                     <div class="col-xl-7 col-lg-6 col-md-6">
                                         <div class="tp-slider-thumb text-end">
-                                            <img src={{asset("assets/img/slider/slider-img-1.png")}} alt="slider-img">
+                                            <img style="width: 420px; height: 372px; object-fit: cover"
+                                                 src="{{asset($adProduct->main_image_path)}}" alt="{{ $adProduct->name }}">
                                         </div>
                                     </div>
                                 </div>
@@ -79,7 +80,8 @@
                                     </div>
                                     <div class="col-xl-7 col-lg-6 col-md-6">
                                         <div class="tp-slider-thumb text-end">
-                                            <img src={{asset("assets/img/slider/slider-img-3.png")}} alt="slider-img">
+                                            <img style="width: 420px; height: 391px; object-fit: cover"
+                                                 src="{{asset($adProduct->main_image_path)}}" alt="{{ $adProduct->name }}">
                                         </div>
                                     </div>
                                 </div>

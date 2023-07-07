@@ -284,7 +284,7 @@
 
 
 @include('../../includes/scripts')
-@yield('custom-scripts')
+@stack('custom-scripts')
 
 </body>
 

@@ -274,3 +274,9 @@ a.provider-overview-details-item:hover {
     color: var(--tp-theme-primary);
     cursor: pointer;
 }
+
+.tp-product-thumb-2 img, .tp-product-details-nav-main-thumb img,
+#productDetailsNavThumb img, .tp-product-thumb-3 img,
+.tp-product-thumb-1 img {
+    background: var(--tp-border-4) !important;
+}

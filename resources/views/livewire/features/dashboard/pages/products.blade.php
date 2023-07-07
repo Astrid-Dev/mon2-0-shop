@@ -20,20 +20,22 @@
                             <div class="tab-content" id="profile-tabContent">
                                 <div class="tab-pane fade show active" id="nav-products" role="tabpanel" aria-labelledby="nav-products-tab">
                                     <div class="profile__ticket table-responsive">
-                                        <table class="table table-hover">
+                                        <table class="table table-hover table-bordered">
                                             <thead>
                                             <tr>
-                                                <th rowspan="2" scope="col">{{ __('dashboard.products.table_header.name') }}</th>
-                                                <th rowspan="2" scope="col">{{ __('dashboard.products.table_header.category') }}</th>
-                                                <th rowspan="2" scope="col">{{ __('dashboard.products.table_header.price') }}</th>
-                                                <th rowspan="2" scope="col">{{ __('dashboard.products.table_header.is_in_promotion') }}</th>
-                                                <th rowspan="2" scope="col">{{ __('dashboard.products.table_header.actions') }}</th>
+                                                <th>#</th>
+                                                <th scope="col">{{ __('dashboard.products.table_header.name') }}</th>
+                                                <th scope="col">{{ __('dashboard.products.table_header.category') }}</th>
+                                                <th scope="col">{{ __('dashboard.products.table_header.price') }}</th>
+                                                <th scope="col">{{ __('dashboard.products.table_header.is_in_promotion') }}</th>
+                                                <th scope="col">{{ __('dashboard.products.table_header.actions') }}</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             @foreach($products as $product)
                                                 <tr>
-                                                    <td title="{{ $product->name }}" class="single-line-ellipsis">
+                                                    <td>{{ $product->id }}</td>
+                                                    <td title="{{ $product->name }}" style="max-width: 300px" class="single-line-ellipsis">
                                                         {{ $product->name }}
                                                     </td>
                                                     <td title="{{ $product->category->label }}" class="single-line-ellipsis">

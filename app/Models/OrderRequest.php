@@ -19,6 +19,10 @@ class OrderRequest extends Model
         'description',
     ];
 
+    protected $dates = [
+        'created_at'
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

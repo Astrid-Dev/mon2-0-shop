@@ -51,7 +51,7 @@ class ProductsDetails extends Component
         $temp = explode('_', $productIdentifier);
         $productId = $temp[sizeof($temp)-1];
         $this->product = Product::customQuery()
-            ->with(['colors', 'category', 'sizes', 'dimensions', 'siblings'])
+            ->with(['colors', 'category', 'sizes', 'dimensions', 'siblings', 'images'])
             ->find($productId);
         array_pop($temp);
         $incomeProductName = implode('', $temp);
@@ -67,17 +67,17 @@ class ProductsDetails extends Component
                 ->get();
 
             $this->productRatings = [
-                "5" => 0,
-                "4" => 0,
-                "3" => 0,
-                "2" => 0,
-                "1" => 0,
+                "r-5" => 0,
+                "r-4" => 0,
+                "r-3" => 0,
+                "r-2" => 0,
+                "r-1" => 0,
             ];
 
             foreach ($ratingsData as $ratingData) {
                 $key = intval($ratingData->rating);
                 if ($key >= 1 && $key <= 5) {
-                    $this->productRatings[strval($key)] += $ratingData->count;
+                    $this->productRatings["r-".$key] += $ratingData->count;
                 }
             }
 
@@ -124,6 +124,21 @@ class ProductsDetails extends Component
         }
     }
 
+    public function handleSnapshot()
+    {
+        Debugbar::log($this->product->currentUserSnapshot()->exists());
+        if (!auth()->check()) {
+            $this->showWarningToast(__('helpers.should_be_logged_in'));
+        } else {
+            if ($this->product->currentUserSnapshot()->exists()) {
+                $this->product->snapshots()->detach([auth()->id()]);
+            } else {
+                $this->product->snapshots()
+                    ->attach([auth()->id()]);
+            }
+        }
+    }
+
     public function setRating($rating)
     {
         $this->newReview['rating'] = $rating;
@@ -149,7 +164,7 @@ class ProductsDetails extends Component
                 'rating' => $this->newReview['rating'],
                 'comment' => $this->newReview['comment']
             ]);
-            $this->productRatings[strval($this->newReview['rating'])] += 1;
+            $this->productRatings["r-".($this->newReview['rating'])] += 1;
             $this->reviewsCount += 1;
             $this->reviewsAverage = ($this->reviewsAverage * ($this->reviewsCount - 1) + $this->newReview['rating']) / $this->reviewsCount;
             $this->showSuccessToast(__('product_details.on_submit_review_success'));
@@ -171,6 +186,7 @@ class ProductsDetails extends Component
         return view('livewire.features.products.pages.products-details', [
                 'provider' => $this->product->provider,
                 'userHasBookmarked' => $this->product->currentUserBookmark()->exists(),
+                'userHasSnapshot' => $this->product->currentUserSnapshot()->exists(),
                 'reviews' => $reviews,
             ])
             ->extends('livewire.layouts.app')

@@ -98,13 +98,9 @@
                                     </div>
                                     <div class="col-xl-6 col-lg-6">
                                         <div class="tp-product-banner-thumb-wrapper p-relative">
-                                            <div class="tp-product-banner-thumb-shape">
-                                                <span class="tp-product-banner-thumb-gradient"></span>
-                                                <img class="tp-offer-shape" src={{asset("assets/img/banner/banner-slider-offer.png")}} alt="">
-                                            </div>
-
                                             <div class="tp-product-banner-thumb text-end p-relative z-index-1">
-                                                <img src={{asset("assets/img/banner/banner-slider-1.png")}} alt="">
+                                                <img style="width: 420px; height: 367px; object-fit: cover"
+                                                     src="{{asset($ad->main_image_path)}}" alt="{{ $ad->name }}">
                                             </div>
                                         </div>
                                     </div>
@@ -134,3 +130,7 @@
     <livewire:shared.components.product-quick-view />
 
 </div>
+
+@push('custom-scripts')
+    <script>console.log('ok')</script>
+@endpush

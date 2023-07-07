@@ -108,8 +108,10 @@
                                 <div class="row">
                                     @foreach($products as $product)
                                         <div class="col-xl-3 col-lg-3 col-sm-6">
-                                            <livewire:shared.components.product-item
-                                                :product="$product"/>
+                                            @include('livewire.shared.components.product-item', [
+                                                'product' => $product,
+                                                'type' => 'sm'
+                                            ])
                                         </div>
                                     @endforeach
                                 </div>

@@ -15,4 +15,8 @@ return [
     'change_password' => 'changer-le-mot-passe',
     'my_products' => 'mes-produits',
     'custom_products' => 'produits-personnalises',
+    'orders' => 'commandes',
+    'my_orders' => 'mes-commandes',
+    'questions' => 'questions',
+    'my_questions' => 'mes-questions',
 ];

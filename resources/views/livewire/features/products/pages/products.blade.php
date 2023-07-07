@@ -169,7 +169,8 @@
                                         <div class="tp-shop-widget-product-item d-flex align-items-center">
                                             <div class="tp-shop-widget-product-thumb">
                                                 <a href="{{$product->details_page_link}}">
-                                                    <img src={{asset("assets/img/product/shop/sm/shop-sm-1.jpg")}} alt="">
+                                                    <img src={{asset($product->main_image_path)}}
+                                                     alt="{{ $product->name }}">
                                                 </a>
                                             </div>
                                             <div class="tp-shop-widget-product-content">
@@ -263,11 +264,10 @@
                                     <div class="row infinite-container">
                                         @foreach($products as $product)
                                             <div class="col-xl-4 col-md-6 col-sm-6 infinite-item">
-                                                <livewire:shared.components.product-item
-                                                    :product="$product"
-                                                    :type="'listing'"
-                                                    :key="'product-item-'.$product->id.rand()"
-                                                />
+                                                @include('livewire.shared.components.product-item', [
+                                                    'product' => $product,
+                                                    'type' => 'listing'
+                                                ])
                                             </div>
                                         @endforeach
                                     </div>

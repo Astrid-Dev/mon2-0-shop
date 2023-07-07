@@ -14,11 +14,10 @@
 
                         <div class="tp-product-sm-wrapper mr-20">
                             @foreach($discountProducts as $product)
-                                <livewire:shared.components.product-item
-                                    :product="$product"
-                                    :type="'sm'"
-                                    :key="'discount-product-'.$product->id.rand()"
-                                />
+                                @include('livewire.shared.components.product-item', [
+                                    'product' => $product,
+                                    'type' => 'sm'
+                                ])
                             @endforeach
                         </div>
                     </div>
@@ -35,11 +34,10 @@
 
                         <div class="tp-product-sm-wrapper mr-20">
                             @foreach($preOrderProducts as $product)
-                                <livewire:shared.components.product-item
-                                    :product="$product"
-                                    :type="'sm'"
-                                    :key="'product-sm-'.$product->id.rand()"
-                                />
+                                @include('livewire.shared.components.product-item', [
+                                    'product' => $product,
+                                    'type' => 'sm'
+                                ])
                             @endforeach
                         </div>
                     </div>
@@ -56,11 +54,10 @@
 
                         <div class="tp-product-sm-wrapper mr-20">
                             @foreach($inStockProducts as $product)
-                                <livewire:shared.components.product-item
-                                    :product="$product"
-                                    :type="'sm'"
-                                    :key="'in-stock-product-'.$product->id.rand()"
-                                />
+                                @include('livewire.shared.components.product-item', [
+                                    'product' => $product,
+                                    'type' => 'sm'
+                                ])
                             @endforeach
                         </div>
                     </div>

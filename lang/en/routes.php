@@ -15,4 +15,8 @@ return [
     'change_password' => 'change-password',
     'my_products' => 'my-products',
     'custom_products' => 'custom-products',
+    'orders' => 'orders',
+    'my_orders' => 'my-orders',
+    'questions' => 'questions',
+    'my_questions' => 'my-questions',
 ];

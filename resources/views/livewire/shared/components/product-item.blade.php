@@ -1,9 +1,9 @@
 @switch($type)
     @case('deal')
-        <div class="tp-product-offer-item tp-product-item transition-3 swiper-slide {{$customClass}}">
+        <div class="tp-product-offer-item tp-product-item transition-3 swiper-slide {{isset($customClass) ? $customClass : ''}}">
             <div class="tp-product-thumb p-relative fix m-img">
                 <a href="{{$product->details_page_link}}">
-                    <img src={{asset("assets/img/product/offer/product-offer-1.jpg")}} alt="product-electronic">
+                    <img src="{{asset($product->main_image_path)}}" alt="{{ $product->name }}">
                 </a>
 
                 <!-- product action -->
@@ -57,12 +57,13 @@
 
             </div>
         </div>
-    @break
+        @break
     @case('sm')
         <div class="tp-product-sm-item d-flex align-items-center">
             <div class="tp-product-thumb mr-25 fix">
                 <a href="{{$product->details_page_link}}">
-                    <img src={{asset("assets/img/product/sm/product-sm-1.jpg")}} alt="">
+                    <img style="width: 140px; height: 140px; object-fit: cover"
+                         src="{{asset($product->main_image_path)}}" alt="{{ $product->name }}">
                 </a>
             </div>
             <div class="tp-product-sm-content">
@@ -86,12 +87,12 @@
                 </div>
             </div>
         </div>
-    @break
+        @break
     @case('listing')
         <div class="tp-product-item-2 mb-40">
             <div class="tp-product-thumb-2 p-relative z-index-1 fix w-img">
                 <a href="{{$product->details_page_link}}">
-                    <img src={{asset("assets/img/product/2/prodcut-1.jpg")}} alt="">
+                    <img src="{{asset($product->main_image_path)}}" alt="{{ $product->name }}">
                 </a>
 
                 <livewire:shared.components.product-badges
@@ -123,12 +124,12 @@
                 </div>
             </div>
         </div>
-    @break
+        @break
     @default
-        <div class="tp-product-item p-relative transition-3 mb-25 {{$customClass}}">
+        <div class="tp-product-item p-relative transition-3 mb-25 {{isset($customClass) ? $customClass : ''}}">
             <div class="tp-product-thumb p-relative fix m-img">
                 <a href="{{$product->details_page_link}}">
-                    <img src={{asset("assets/img/product/product-1.jpg")}} alt="product-electronic">
+                    <img src="{{asset($product->main_image_path)}}" alt="{{ $product->name }}">
                 </a>
 
                 <livewire:shared.components.product-badges
@@ -159,5 +160,5 @@
                 </div>
             </div>
         </div>
-    @break
+        @break
 @endswitch

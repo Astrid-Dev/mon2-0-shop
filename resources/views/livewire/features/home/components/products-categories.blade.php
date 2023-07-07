@@ -51,10 +51,10 @@
                         <div class="row">
                             @foreach($randomCategory->products as $product)
                                 <div class="col-xl-4 col-sm-6">
-                                    <livewire:shared.components.product-item
-                                        :product="$product"
-                                        :key="'product-item-'.$product->id"
-                                    />
+                                    @include('livewire.shared.components.product-item', [
+                                    'product' => $product,
+                                    'type' => 'default'
+                                ])
                                 </div>
                             @endforeach
                         </div>

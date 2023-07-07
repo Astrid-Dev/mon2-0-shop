@@ -67,6 +67,11 @@ class Provider extends Model
         return $this->hasManyThrough(OrderRequest::class, Product::class);
     }
 
+    public function questions(): HasManyThrough
+    {
+        return $this->hasManyThrough(ProductQuestion::class, Product::class);
+    }
+
     public static function customQuery(): Builder
     {
         return self::query()

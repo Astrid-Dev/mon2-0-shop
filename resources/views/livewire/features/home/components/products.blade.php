@@ -54,10 +54,10 @@
                                 <div class="row">
                                     @foreach($newProducts as $product)
                                         <div class="col-xl-3 col-lg-3 col-sm-6">
-                                            <livewire:shared.components.product-item
-                                                :product="$product"
-                                                :key="'new-product-item-'.$product->id.rand()"
-                                            />
+                                            @include('livewire.shared.components.product-item', [
+                                                'product' => $product,
+                                                'type' => 'default'
+                                            ])
                                         </div>
                                     @endforeach
                                 </div>
@@ -66,10 +66,10 @@
                                 <div class="row">
                                     @foreach($featuredProducts as $product)
                                         <div class="col-xl-3 col-lg-3 col-sm-6">
-                                            <livewire:shared.components.product-item
-                                                :product="$product"
-                                                :key="'featured-product-item-'.$product->id.rand()"
-                                            />
+                                            @include('livewire.shared.components.product-item', [
+                                                'product' => $product,
+                                                'type' => 'sm'
+                                            ])
                                         </div>
                                     @endforeach
                                 </div>
@@ -78,10 +78,10 @@
                                 <div class="row">
                                     @foreach($topSellersProducts as $product)
                                         <div class="col-xl-3 col-lg-3 col-sm-6">
-                                            <livewire:shared.components.product-item
-                                                :product="$product"
-                                                :key="'top-seller-product-item-'.rand().$product->id"
-                                            />
+                                            @include('livewire.shared.components.product-item', [
+                                                'product' => $product,
+                                                'type' => 'default'
+                                            ])
                                         </div>
                                     @endforeach
                                 </div>

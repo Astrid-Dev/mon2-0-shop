@@ -12,6 +12,7 @@
         "laravel/jetstream": "^3.2",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
+        "laravolt/avatar": "^5.0",
         "livewire/livewire": "^2.11",
         "mcamara/laravel-localization": "^1.8",
         "mckenziearts/laravel-notify": "^2.4",

@@ -35,11 +35,11 @@
                         <div class="tp-product-arrival-active swiper-container">
                             <div class="swiper-wrapper">
                                 @foreach($newProducts as $product)
-                                    <livewire:shared.components.product-item
-                                        :product="$product"
-                                        :customClass="'swiper-slide'"
-                                        :key="'product-arrival-'.$product->id.rand()"
-                                    />
+                                    @include('livewire.shared.components.product-item', [
+                                    'product' => $product,
+                                    'type' => 'default',
+                                    'customClass' => 'swiper-slide'
+                                ])
                                 @endforeach
                             </div>
                         </div>

@@ -65,7 +65,7 @@
                         <div class="tp-product-details-review-input-wrapper  mt-15">
                             <div class="tp-product-details-review-input-box">
                                 <div class="tp-product-details-review-input">
-                                        <textarea id="description" name="review" required
+                                        <textarea id="order-description" name="order-description" required
                                                   minlength="20" maxlength="500"
                                                   wire:model.defer="description"
                                                   placeholder="{{ __('order_request_form.description_placeholder') }}"></textarea>

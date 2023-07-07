@@ -83,7 +83,7 @@ class AddProduct extends Component
     public function saveColors()
     {
         if (!$this->hasSavedColors) {
-            $this->emitTo('features.dashboard.components.product-colors', 'saveColors');
+            $this->emitTo('features.dashboard.components.product-colors', 'saveColors', $this->product);
         } else {
             $this->saveDimensions();
         }
@@ -101,7 +101,7 @@ class AddProduct extends Component
     public function saveDimensions()
     {
         if (!$this->hasSavedDimensions) {
-            $this->emitTo('features.dashboard.components.product-dimensions', 'saveDimensions');
+            $this->emitTo('features.dashboard.components.product-dimensions', 'saveDimensions', $this->product);
         } else {
             $this->saveImages();
         }
@@ -119,7 +119,7 @@ class AddProduct extends Component
     public function saveImages()
     {
         if (!$this->hasSavedImages) {
-            $this->emitTo('features.dashboard.components.product-images', 'saveImages');
+            $this->emitTo('features.dashboard.components.product-images', 'saveImages', $this->product);
         } else {
             $this->savePromotion();
         }
@@ -137,7 +137,7 @@ class AddProduct extends Component
     public function savePromotion()
     {
         if (!$this->hasSavedPromotion) {
-            $this->emitTo('features.dashboard.components.product-promotion', 'savePromotion');
+            $this->emitTo('features.dashboard.components.product-promotion', 'savePromotion', $this->product);
         } else {
             $this->saveSiblings();
         }
@@ -155,7 +155,7 @@ class AddProduct extends Component
     public function saveSiblings()
     {
         if (!$this->hasSavedSiblings) {
-            $this->emitTo('features.dashboard.components.product-siblings', 'saveSiblings');
+            $this->emitTo('features.dashboard.components.product-siblings', 'saveSiblings', $this->product);
         } else {
             $this->saveSizes();
         }
@@ -173,7 +173,7 @@ class AddProduct extends Component
     public function saveSizes()
     {
         if (!$this->hasSavedSizes) {
-            $this->emitTo('features.dashboard.components.product-sizes', 'saveSizes');
+            $this->emitTo('features.dashboard.components.product-sizes', 'saveSizes', $this->product);
         } else {
             $this->saveProduct();
         }

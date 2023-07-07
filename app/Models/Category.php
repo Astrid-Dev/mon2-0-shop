@@ -39,13 +39,6 @@ class Category extends Model
         return $this->hasMany(Product::class);
     }
 
-    public function deepProducts(): HasManyThrough
-    {
-        return $this->hasManyThrough(
-            related: Products::class,
-        );
-    }
-
     public function providers(): HasManyThrough
     {
         return $this->hasManyThrough(Provider::class, Product::class);

@@ -222,7 +222,6 @@ class Products extends Component
 
     public function handleSorting($target)
     {
-        Debugbar::log($target);
         if (in_array($target, $this->sortingValues) && strval($this->sorting) !== strval($target)) {
             $this->sorting = $target;
         } else {
@@ -249,7 +248,7 @@ class Products extends Component
                     'orderBy' => 'created_at',
                     'direction' => $orderBy === 'latest' ? 'desc' : 'asc'
                 ];
-            } elseif (in_array($orderBy, ['reviews', 'reviews']) && in_array($orderDirection, ['asc', 'desc'])) {
+            } elseif (in_array($orderBy, ['reviews']) && in_array($orderDirection, ['asc', 'desc'])) {
                 $result = [
                     'orderBy' => 'reviews_avg',
                     'direction' => $orderDirection
